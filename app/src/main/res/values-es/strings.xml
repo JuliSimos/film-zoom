@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Information -->
+    <string name="app_name">FilmZoom</string>
+
+    <!-- Top Bar & Header -->
+    <string name="home_title_popular">Populares</string>
+    <string name="home_subtitle_billboard">Cartelera Global TMDB</string>
+    <string name="home_tag_today">HOY</string>
+
+    <!-- Navigation Bar -->
+    <string name="nav_popular">Populares</string>
+    <string name="nav_tending">Tendencia</string>
+    <string name="nav_watchlist">Deseados</string>
+
+    <!-- Movie Card Formatting -->
+    <string name="movie_metadata_format">%1$s · %2$s</string>
+    <string name="movie_duration_format">%1$d min</string>
+    <string name="movie_rating_format">%1$.1f</string>
+
+    <!-- Loading & State Messages -->
+    <string name="loading_more_movies">Cargando más películas…</string>
+
+    <!-- Accessibility Descriptions -->
+    <string name="cd_search_icon">Buscar películas</string>
+    <string name="cd_profile_icon">Perfil de usuario</string>
+    <string name="cd_movie_poster">Póster de %1$s</string>
+    <string name="cd_movie_details">Ver detalles de %1$s</string>
+</resources>
