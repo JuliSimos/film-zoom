@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -19,7 +20,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,50 +55,72 @@ fun MovieActionButtons(
                 .height(48.dp),
             shape = RoundedCornerShape(24.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = if (isWishlisted) MaterialTheme.colorScheme.primaryContainer
+                containerColor =
+                    if (isWishlisted) MaterialTheme.colorScheme.primaryContainer
                 else MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(
-                text = if (isWishlisted) "❤️  En tu lista" else "🤍  Agregar a deseados",
-                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium),
-                color = if (isWishlisted) MaterialTheme.colorScheme.onPrimaryContainer
-                else MaterialTheme.colorScheme.onPrimary
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ){
+                Icon(
+                    painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_heart),
+                    contentDescription = "Boton para agregar pelicula a la lista de deseados",
+                    tint = if (isWishlisted) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.onPrimary
+                )
+                Text(
+                    text = if (isWishlisted) "En tu lista"
+                    else "Agregar a deseados",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = if (isWishlisted) MaterialTheme.colorScheme.onPrimaryContainer
+                           else MaterialTheme.colorScheme.onPrimary
+                )
+
+            }
+
+
         }
 
         // Botón redondo de sitio web
         Surface(
             modifier = Modifier
                 .height(48.dp)
-                .width(48.dp),
+                .width(48.dp)
+                .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp), spotColor = Color.Black.copy(alpha = 0.20f)),
             shape = RoundedCornerShape(24.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
+            color = MaterialTheme.colorScheme.surface,
             onClick = onWebClick
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "🌐", fontSize = 16.sp)
-            }
+            Icon(
+                painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_open_in_new),
+                contentDescription = "pagina oficial",
+                modifier = Modifier.padding(12.dp),
+                tint = MaterialTheme.colorScheme.primary
+
+
+            )
+
         }
 
         // Botón redondo de compartir
         Surface(
             modifier = Modifier
                 .height(48.dp)
-                .width(48.dp),
+                .width(48.dp)
+                .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp), spotColor = Color.Black.copy(alpha = 0.25f)),
             shape = RoundedCornerShape(24.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
+            color = MaterialTheme.colorScheme.surface,
             onClick = onShareClick
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "🔗", fontSize = 16.sp)
-            }
+            Icon(
+                painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_share),
+                contentDescription = "Compartir",
+                modifier = Modifier.padding(12.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }

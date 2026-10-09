@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unicen.filmzoom.ui.screens.HomeScreen
 import ar.edu.unicen.filmzoom.ui.screens.MovieDetailScreen
+import ar.edu.unicen.filmzoom.ui.screens.MovieTemp
 
 
 @Composable
@@ -15,6 +16,14 @@ fun FilmZoomNavGraph(
     modifier : Modifier = Modifier,
     navController : NavHostController = rememberNavController()
 ) {
+    val sampleMovies = listOf(
+        MovieTemp(1, "Dune: Parte Dos", "2024", "Ciencia ficción, Aventura", "8.5", "166 min"),
+        MovieTemp(2, "Oppenheimer", "2023", "Biografía, Drama, Historia", "8.9", "180 min"),
+        MovieTemp(3, "Spider-Man: Across the Spider-Verse", "2023", "Animación, Acción", "8.7", "140 min"),
+        MovieTemp(4, "The Batman", "2022", "Acción, Crimen, Drama", "7.8", "176 min"),
+        MovieTemp(5, "Interstellar", "2014", "Ciencia ficción, Aventura", "8.7", "169 min")
+    )
+
     NavHost(
         navController = navController,
         startDestination = "Movies",
@@ -26,7 +35,6 @@ fun FilmZoomNavGraph(
                 onMovieClick = { movieId ->
                     navController.navigate("MovieDetails")
                     //navController.navigate("MovieDetail/$movieId")
-
                 }
             )
         }

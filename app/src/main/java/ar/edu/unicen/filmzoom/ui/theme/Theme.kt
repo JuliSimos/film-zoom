@@ -52,7 +52,6 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun FilmZoomTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Cambiado a false para priorizar los colores personalizados de FilmZoom
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

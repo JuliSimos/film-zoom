@@ -90,7 +90,7 @@ fun MovieHeaderSection(
                     .height(160.dp),
                 shape = RoundedCornerShape(12.dp),
                 shadowElevation = 8.dp,
-                color = MaterialTheme.colorScheme.surfaceVariant
+                color = MaterialTheme.colorScheme.surface
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
@@ -121,7 +121,7 @@ fun MovieHeaderSection(
                     // Badge de calificación (Estrella amarilla y puntaje) arriba a la derecha
                     Surface(
                         modifier = Modifier
-                            .padding(8.dp),
+                            .padding(4.dp),
                         shape = RoundedCornerShape(12.dp),
                         color = Color(0xFFF3D086) // Color amarillo suave de la captura
                     ) {

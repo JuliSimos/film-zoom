@@ -1,10 +1,10 @@
 package ar.edu.unicen.filmzoom.ui.screens
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -29,6 +29,8 @@ fun MovieDetailScreen(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        // Vinculamos el color de fondo del Scaffold al tema para que cambie entre claro y oscuro correctamente
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MovieDetailTopBar(
                 title = "Detalle Película",
@@ -86,7 +88,7 @@ fun MovieDetailScreen(
 @Composable
 fun MovieDetailScreenLightPreview() {
     FilmZoomTheme(darkTheme = false) {
-        Surface(color = androidx.compose.material3.MaterialTheme.colorScheme.background) {
+        Surface(color = MaterialTheme.colorScheme.background) {
             MovieDetailScreen()
         }
     }
@@ -96,7 +98,7 @@ fun MovieDetailScreenLightPreview() {
 @Composable
 fun MovieDetailScreenDarkPreview() {
     FilmZoomTheme(darkTheme = true) {
-        Surface(color = androidx.compose.material3.MaterialTheme.colorScheme.background) {
+        Surface(color = MaterialTheme.colorScheme.background) {
             MovieDetailScreen()
         }
     }

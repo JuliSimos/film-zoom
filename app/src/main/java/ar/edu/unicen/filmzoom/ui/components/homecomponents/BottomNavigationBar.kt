@@ -74,8 +74,8 @@ fun BottomNavigationBar(
                 BottomNavItem(
                     iconRes = R.drawable.ic_heart,
                     label = stringResource(id = R.string.nav_watchlist),
-                    isSelected = selectedTab == 1,
-                    onClick = { onTabSelected(1) },
+                    isSelected = selectedTab == 2,
+                    onClick = { onTabSelected(2) },
                     modifier = Modifier.weight(1f)
                 )
             }

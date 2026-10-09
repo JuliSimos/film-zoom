@@ -13,6 +13,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +29,8 @@ fun MovieGenresSection(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+
     ) {
         // Título de la sección
         Text(
@@ -45,9 +48,12 @@ fun MovieGenresSection(
         ) {
             genres.forEach { genre ->
                 Surface(
-                    shape = RoundedCornerShape(24.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                ) {
+                    modifier = Modifier
+                    .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp),
+                        spotColor = Color.Black.copy(alpha = 0.20f)),
+                shape = RoundedCornerShape(24.dp),
+                    color = MaterialTheme.colorScheme.surface
+                    ) {
                     Text(
                         text = genre,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
