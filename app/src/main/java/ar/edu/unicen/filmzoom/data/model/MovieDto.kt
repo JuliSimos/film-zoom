@@ -20,9 +20,6 @@ data class MovieResponseDto(
     @SerializedName("vote_average")
     val voteAverage: Double,  // ranking
 
-    @SerializedName("genre_ids")
-    val genreIds: List<Int>?, // genero
-
     @SerializedName("runtime")
     val runtime: Int?
 )
@@ -31,4 +28,16 @@ data class MoviesPageResponseDto(
     @SerializedName("results")
     val results: List<MovieResponseDto>
 )
+
+// Función de extensión para transformar el DTO de red al modelo de Dominio
+fun MovieResponseDto.toDomain(): Movie {
+    return Movie(
+        id = this.id,
+        title = this.title,
+        posterPath = this.posterPath ?: "", // Manejamos el nulo por si TMDB no manda imagen
+        releaseDate = this.releaseDate ?: "",
+        voteAverage = this.voteAverage,
+        runtime = this.runtime ?: 0
+    )
+}
 

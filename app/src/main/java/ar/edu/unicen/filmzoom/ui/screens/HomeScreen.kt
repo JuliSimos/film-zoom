@@ -52,15 +52,16 @@ fun HomeScreen(
 }
 
 val movies = listOf(
-MovieTemp(1, "Dune: Parte Dos", "2024", "Ciencia ficción, Aventura", "8.5", "166 min"),
-MovieTemp(2, "Oppenheimer", "2023", "Biografía, Drama, Historia", "8.9", "180 min"),
-MovieTemp(3, "Spider-Man: Across the Spider-Verse", "2023", "Animación, Acción", "8.7", "140 min"),
-MovieTemp(4, "The Batman", "2022", "Acción, Crimen, Drama", "7.8", "176 min"),
-MovieTemp(5, "Interstellar", "2014", "Ciencia ficción, Aventura", "8.7", "169 min"), MovieTemp(6, "Dune: Parte Dos", "2024", "Ciencia ficción, Aventura", "8.5", "166 min"),
-MovieTemp(7, "Oppenheimer", "2023", "Biografía, Drama, Historia", "8.9", "180 min"),
-MovieTemp(8, "Spider-Man: Across the Spider-Verse", "2023", "Animación, Acción", "8.7", "140 min"),
-MovieTemp(9, "The Batman", "2022", "Acción, Crimen, Drama", "7.8", "176 min"),
-MovieTemp(10, "Interstellar", "2014", "Ciencia ficción, Aventura", "8.7", "169 min")
+    MovieTemp(1, "Dune: Parte Dos", "2024",  "8.5", "166 min"),
+    MovieTemp(2, "Oppenheimer", "2023", "8.9", "180 min"),
+    MovieTemp(3, "Spider-Man: Across the Spider-Verse", "2023",  "8.7", "140 min"),
+    MovieTemp(4, "The Batman", "2022",  "7.8", "176 min"),
+    MovieTemp(5, "Interstellar", "2014",  "8.7", "169 min"),
+    MovieTemp(6, "Dune: Parte Dos", "2024",  "8.5", "166 min"),
+    MovieTemp(7, "Oppenheimer", "2023",  "8.9", "180 min"),
+    MovieTemp(8, "Spider-Man: Across the Spider-Verse", "2023",  "8.7", "140 min"),
+    MovieTemp(9, "The Batman", "2022",  "7.8", "176 min"),
+    MovieTemp(10, "Interstellar", "2014",  "8.7", "169 min")
 )
 @Preview(name = "Light Mode", showBackground = true)
 @Composable

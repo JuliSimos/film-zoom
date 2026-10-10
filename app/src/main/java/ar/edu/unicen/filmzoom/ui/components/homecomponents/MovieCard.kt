@@ -38,7 +38,6 @@ import ar.edu.unicen.filmzoom.ui.theme.RatingStarLight
 fun MovieCard(
     title: String = "Dune: Parte Dos",
     year: String = "2024",
-    genres: String = "Ciencia ficción, Aventura",
     rating: String = "8.5",
     duration: String = "166 min",
     onMovieClicked: () -> Unit
@@ -94,16 +93,31 @@ fun MovieCard(
 
                 Spacer(modifier = Modifier.height(4.dp))
 
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ){
                 // Año y Género
                 Text(
-                    text = "$year · $genres",
+                    text = year,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant // Texto secundario
                 )
+                Text(
+                    text = "·",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = duration,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-                // CHIPS (Rating y Duración)
+                // CHIPS (Rating)
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -131,26 +145,6 @@ fun MovieCard(
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
-                    }
-
-                    Text(
-                        text = "·",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    // Chip Duración
-                    Surface(
-                        color = MaterialTheme.colorScheme.surfaceVariant,
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(
-                            text = duration,
-                            fontSize = 13.sp, // Corregido el valor de 5.sp a 13.sp
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(horizontal = 10.dp)
-                        )
                     }
                 }
             }

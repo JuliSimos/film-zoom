@@ -1,3 +1,4 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -24,6 +25,28 @@ android {
         versionName = "$versionMajor.$versionMinor.$versionPatch"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+// --- LECTURA EXPLÍCITA DEL TOKEN ---
+        var bearerTokenValue = ""
+        val localPropertiesFile = project.rootProject.file("local.properties")
+
+        // Verificamos paso a paso si el archivo existe
+        if (localPropertiesFile.exists()) {
+            val properties = Properties()
+            val inputStream = localPropertiesFile.inputStream()
+            properties.load(inputStream)
+            inputStream.close()
+
+            // Obtenemos la propiedad o dejamos un string vacío si no está
+            bearerTokenValue = properties.getProperty("tmdb.bearer_token") ?: ""
+        }
+
+        // Lo inyectamos en BuildConfig
+        buildConfigField("String", "TMDB_BEARER_TOKEN", "\"$bearerTokenValue\"")
+    }
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -42,9 +65,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        compose = true
-    }
+
 }
 
 dependencies {
@@ -67,6 +88,9 @@ dependencies {
     // Hilt (Inyección de dependencias)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // HttpLoggingInterceptor
+    implementation(libs.okhttp.logging)
 
     // Retrofit (Red)
     implementation(libs.retrofit)
