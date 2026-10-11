@@ -1,6 +1,6 @@
-package ar.edu.unicen.filmzoom.ui.components.homecomponents
+package ar.edu.unicen.filmzoom.ui.home.components
 
-import androidx.compose.foundation.Image
+import coil.compose.AsyncImage
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,22 +31,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
+import ar.edu.unicen.filmzoom.domain.model.Movie
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import ar.edu.unicen.filmzoom.ui.theme.RatingStarLight
 
 @Composable
 fun MovieCard(
-    title: String = "Dune: Parte Dos",
-    year: String = "2024",
-    rating: String = "8.5",
-    duration: String = "166 min",
+    movie : Movie,
     onMovieClicked: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onMovieClicked() },
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
@@ -54,22 +52,19 @@ fun MovieCard(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // PÓSTER DE LA PELÍCULA CON CONTENEDOR VIGENTE
             Surface(
-                shape = RoundedCornerShape(5.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 modifier = Modifier
-                    .width(74.dp)
-                    .height(100.dp)
+                    .width(90.dp)
+                    .height(130.dp)
             ) {
-                // Aquí va la imagen del póster cuando se implemente
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
-                    contentDescription = "Póster de $title",
+                AsyncImage(
+                    model = movie.posterPath, //no me gusta dejar una url absoluta
+                    contentDescription = "Póster de ${movie.title}",
                     modifier = Modifier
                         .padding(4.dp)
                         .clip(RoundedCornerShape(5.dp)),
@@ -82,53 +77,28 @@ fun MovieCard(
             // COLUMNA DE INFORMACIÓN
             Column(
                 modifier = Modifier.weight(1f)
+                    .padding(8.dp)
             ) {
-                // TÍTULO
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface // Adapta texto primario
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
                 Row(
+                    modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ){
-                // Año y Género
-                Text(
-                    text = year,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant // Texto secundario
-                )
-                Text(
-                    text = "·",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = duration,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                }
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // CHIPS (Rating)
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    Text(
+                        text = movie.title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface // Adapta texto primario
+                    )
+
                     // Chip Rating
                     Surface(
                         color = MaterialTheme.colorScheme.surfaceVariant,
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(4.dp)
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 10.dp),
+                            modifier = Modifier.padding(horizontal = 4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -137,9 +107,11 @@ fun MovieCard(
                                 tint = RatingStarLight, // #FFB300
                                 modifier = Modifier.size(16.dp)
                             )
+
                             Spacer(modifier = Modifier.width(4.dp))
+
                             Text(
-                                text = rating,
+                                text = movie.voteAverage.toString().take(3),
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -147,6 +119,20 @@ fun MovieCard(
                         }
                     }
                 }
+                // TÍTULO
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // Año
+                    Text(
+                        text = movie.releaseDate.take(4),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant // Texto secundario
+                    )
+                }
+
             }
 
             // FLECHA A LA DERECHA
@@ -167,7 +153,17 @@ fun MovieCard(
 fun MovieCardLightPreview() {
     FilmZoomTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MovieCard(onMovieClicked = {})
+            MovieCard(
+                movie = Movie(
+                    id = 1,
+                    title = "Inception",
+                    posterPath = "/edv5bs1qYwqvqyJ6G2T2oQ1HQC8.jpg",
+                    releaseDate = "2010-07-15",
+                    voteAverage = 8.8,
+                    runtime = 148
+                ),
+                onMovieClicked = {}
+            )
         }
     }
 }
@@ -177,7 +173,17 @@ fun MovieCardLightPreview() {
 fun MovieCardDarkPreview() {
     FilmZoomTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MovieCard(onMovieClicked = {})
+                MovieCard(
+                    movie = Movie(
+                        id = 1,
+                        title = "Inception",
+                        posterPath = "/edv5bs1qYwqvqyJ6G2T2oQ1HQC8.jpg",
+                        releaseDate = "2010-07-15",
+                        voteAverage = 8.8,
+                        runtime = 148
+                ),
+                onMovieClicked = {}
+            )
         }
     }
 }

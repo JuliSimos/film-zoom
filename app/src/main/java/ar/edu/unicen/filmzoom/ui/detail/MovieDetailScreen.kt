@@ -1,4 +1,4 @@
-package ar.edu.unicen.filmzoom.ui.screens
+package ar.edu.unicen.filmzoom.ui.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieActionButtons
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieCastSection
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieDetailTopBar
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieGenresSection
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieHeaderSection
-import ar.edu.unicen.filmzoom.ui.components.detailcomponents.MovieSynopsisCard
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieActionButtons
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieCastSection
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieDetailTopBar
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieGenresSection
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable

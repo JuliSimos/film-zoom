@@ -26,24 +26,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-// --- LECTURA EXPLÍCITA DEL TOKEN ---
-        var bearerTokenValue = ""
-        val localPropertiesFile = project.rootProject.file("local.properties")
-
-        // Verificamos paso a paso si el archivo existe
-        if (localPropertiesFile.exists()) {
-            val properties = Properties()
-            val inputStream = localPropertiesFile.inputStream()
-            properties.load(inputStream)
-            inputStream.close()
-
-            // Obtenemos la propiedad o dejamos un string vacío si no está
-            bearerTokenValue = properties.getProperty("tmdb.bearer_token") ?: ""
+        // Leemos local.properties de forma segura desde la raíz del proyecto
+        val localProperties = Properties()
+        val localFile = rootProject.file("local.properties")
+        if (localFile.exists()) {
+            localFile.inputStream().use { stream ->
+                localProperties.load(stream)
+            }
         }
-
-        // Lo inyectamos en BuildConfig
-        buildConfigField("String", "TMDB_BEARER_TOKEN", "\"$bearerTokenValue\"")
+        val bearerToken = localProperties.getProperty("tmdb.bearer_token", "")
+        buildConfigField("String", "TMDB_BEARER_TOKEN", "\"$bearerToken\"")
     }
+
     buildFeatures {
         compose = true
         buildConfig = true

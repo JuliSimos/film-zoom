@@ -7,14 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import ar.edu.unicen.filmzoom.ui.navigation.FilmZoomNavGraph
-import ar.edu.unicen.filmzoom.ui.screens.HomeScreen
-import ar.edu.unicen.filmzoom.ui.screens.MovieDetailScreen
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

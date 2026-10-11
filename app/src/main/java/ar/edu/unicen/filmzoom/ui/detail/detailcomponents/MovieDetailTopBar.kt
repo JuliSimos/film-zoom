@@ -1,17 +1,18 @@
-package ar.edu.unicen.filmzoom.ui.components.homecomponents
+package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,10 +35,12 @@ import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
-fun TopNavegationBar(
-    modifier: Modifier = Modifier,
-    onSearchClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
+fun MovieDetailTopBar(
+    title: String = "Detalle Película",
+    onBackClick: () -> Unit = {},
+    onShareClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -49,44 +53,31 @@ fun TopNavegationBar(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = 8.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_film),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(28.dp)
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Text(
-                text = stringResource(id = R.string.home_title_popular),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 22.sp
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            IconButton(
-                onClick = onSearchClick,
-                modifier = Modifier.size(40.dp)
+            // Izquierda: Botón de volver y Título
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_search),
-                    contentDescription = stringResource(id = R.string.cd_search_icon),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(22.dp)
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Volver atrás",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                Text(
+                    text = title,
+                    style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
+            // Derecha: Botón de compartir e Ícono de usuario
             Box(
                 modifier = Modifier
                     .size(40.dp)
@@ -105,23 +96,22 @@ fun TopNavegationBar(
         }
     }
 }
-
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun TopNavegationBarLightPreview() {
+fun MovieDetailTopBarLightPreview() {
     FilmZoomTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            TopNavegationBar()
+            MovieDetailTopBar()
         }
     }
 }
 
 @Preview(name = "Dark Mode", showBackground = true)
 @Composable
-fun TopNavegationBarDarkPreview() {
+fun MovieDetailTopBarDarkPreview() {
     FilmZoomTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            TopNavegationBar()
+            MovieDetailTopBar()
         }
     }
 }

@@ -1,4 +1,4 @@
-package ar.edu.unicen.filmzoom.ui.components.homecomponents
+package ar.edu.unicen.filmzoom.ui.home.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

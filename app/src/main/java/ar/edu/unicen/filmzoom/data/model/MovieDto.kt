@@ -34,7 +34,7 @@ fun MovieResponseDto.toDomain(): Movie {
     return Movie(
         id = this.id,
         title = this.title,
-        posterPath = this.posterPath ?: "", // Manejamos el nulo por si TMDB no manda imagen
+        posterPath = "https://image.tmdb.org/t/p/w500${this.posterPath}", // Manejamos el nulo por si TMDB no manda imagen
         releaseDate = this.releaseDate ?: "",
         voteAverage = this.voteAverage,
         runtime = this.runtime ?: 0

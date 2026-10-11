@@ -2,11 +2,13 @@ package ar.edu.unicen.filmzoom.dll
 
 import ar.edu.unicen.filmzoom.BuildConfig
 import ar.edu.unicen.filmzoom.data.remote.TmdbApiService
+import ar.edu.unicen.filmzoom.data.repository.MovieRepositoryImpl
+import ar.edu.unicen.filmzoom.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -52,5 +54,12 @@ object AppModule{
     @Singleton
     fun provideTmdbApiService(retrofit: Retrofit): TmdbApiService {
         return retrofit.create(TmdbApiService::class.java)
+    }
+    @Provides
+    @Singleton
+    fun provideMovieRepository(
+        movieRepositoryImpl: MovieRepositoryImpl
+    ): MovieRepository {
+        return movieRepositoryImpl
     }
 }

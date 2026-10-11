@@ -1,4 +1,4 @@
-package ar.edu.unicen.filmzoom.ui.components.detailcomponents
+package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
@@ -65,7 +66,7 @@ fun MovieActionButtons(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ){
                 Icon(
-                    painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_heart),
+                    painter = painterResource(id = R.drawable.ic_heart),
                     contentDescription = "Boton para agregar pelicula a la lista de deseados",
                     tint = if (isWishlisted) MaterialTheme.colorScheme.primary
                             else MaterialTheme.colorScheme.onPrimary
@@ -95,7 +96,7 @@ fun MovieActionButtons(
             onClick = onWebClick
         ) {
             Icon(
-                painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_open_in_new),
+                painter = painterResource(id = R.drawable.ic_open_in_new),
                 contentDescription = "pagina oficial",
                 modifier = Modifier.padding(12.dp),
                 tint = MaterialTheme.colorScheme.primary
@@ -116,7 +117,7 @@ fun MovieActionButtons(
             onClick = onShareClick
         ) {
             Icon(
-                painter = painterResource(id = ar.edu.unicen.filmzoom.R.drawable.ic_share),
+                painter = painterResource(id = R.drawable.ic_share),
                 contentDescription = "Compartir",
                 modifier = Modifier.padding(12.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant

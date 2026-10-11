@@ -1,4 +1,4 @@
-package ar.edu.unicen.filmzoom.ui.components.detailcomponents
+package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
