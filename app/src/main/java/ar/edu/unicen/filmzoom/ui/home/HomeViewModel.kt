@@ -15,7 +15,7 @@ class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ): ViewModel(){
 
-    // 2. Estado mutable interno (privado para que nadie de afuera lo rompa)
+    // 2. Estado mutable interno (privado para que nadie de afuera lo rompa)tP
     private val _uiState = MutableStateFlow(HomeUiState())
 
     // 3. Estado público de sólo lectura al que se suscribe la UI

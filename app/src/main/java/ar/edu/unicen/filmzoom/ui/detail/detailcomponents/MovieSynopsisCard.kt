@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,15 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieSynopsisCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    overview: String,
+    director: String?
 ) {
+    if (overview.isBlank() && director.isNullOrBlank()) return
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -48,11 +49,7 @@ fun MovieSynopsisCard(
             ) {
                 //Text(text = movie.overview) // O podés cortarla con .take(100) + "..." si querés un resumen corto
                 Text(
-                    text = "Dom Cobb es un ladrón capaz de adentrarse en" +
-                            "los sueños de los demás para robarles sus" +
-                            "secretos más ocultos. Ahora tiene la" +
-                            "oportunidad de recuperar su vida en una última" +
-                            "misión: implantar una idea en lugar de robarla.",
+                    text = overview,
                     style = TextStyle(fontSize = 14.sp),
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -64,7 +61,7 @@ fun MovieSynopsisCard(
                 ) {
                     // Indicador del director
                     Text(
-                        text = "🎬 Director: Christopher Nolan",
+                        text = "🎬 Director: $director", //Remplazar esta seccion con un icono y contenedor row
                         style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -80,22 +77,22 @@ fun MovieSynopsisCard(
     }
 }
 
-@Preview(name = "Light Mode", showBackground = true)
-@Composable
-fun MovieSynopsisCardLightPreview() {
-    FilmZoomTheme(darkTheme = false) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieSynopsisCard(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
-
-@Preview(name = "Dark Mode", showBackground = true)
-@Composable
-fun MovieSynopsisCardDarkPreview() {
-    FilmZoomTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieSynopsisCard(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
+//@Preview(name = "Light Mode", showBackground = true)
+//@Composable
+//fun MovieSynopsisCardLightPreview() {
+//    FilmZoomTheme(darkTheme = false) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieSynopsisCard(modifier = Modifier.padding(16.dp))
+//        }
+//    }
+//}
+//
+//@Preview(name = "Dark Mode", showBackground = true)
+//@Composable
+//fun MovieSynopsisCardDarkPreview() {
+//    FilmZoomTheme(darkTheme = true) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieSynopsisCard(modifier = Modifier.padding(16.dp))
+//        }
+//    }
+//}

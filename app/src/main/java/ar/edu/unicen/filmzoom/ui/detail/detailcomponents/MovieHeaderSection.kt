@@ -1,6 +1,5 @@
 package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,19 +20,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unicen.filmzoom.R
+import ar.edu.unicen.filmzoom.domain.model.MovieDetails
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
+import coil.compose.AsyncImage
 
 @Composable
 fun MovieHeaderSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    detailMovie: MovieDetails?
 ) {
+    // Si la película es nula (está cargando), podemos retornar un contenedor vacío o un placeholder
+    if (detailMovie == null) return
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -47,10 +50,9 @@ fun MovieHeaderSection(
                 .height(240.dp)
                 .background(MaterialTheme.colorScheme.surfaceVariant)
         ) {
-            // Degradado sutil para fundir la imagen con el color de fondo de la pantalla
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
-                contentDescription = "portada de la pelicula",
+            AsyncImage(
+                model = detailMovie.backdropPath,
+                contentDescription = "portada de la ${detailMovie.title}",
                 modifier = Modifier
                     .fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -62,7 +64,7 @@ fun MovieHeaderSection(
                         Brush.verticalGradient(
                             colors = listOf(
                                 Color.Transparent,
-                                MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.2f),
                                 MaterialTheme.colorScheme.background
                             )
                         )
@@ -90,13 +92,13 @@ fun MovieHeaderSection(
                 shadowElevation = 8.dp,
                 color = MaterialTheme.colorScheme.surface
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(
-                        text = "Póster",
-                        style = TextStyle(fontSize = 12.sp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                AsyncImage(
+                    model = detailMovie.posterPath,
+                    contentDescription = "portada de la ${detailMovie.title}",
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
             }
 
             // Textos descriptivos (Productora, Título, Año y Duración)
@@ -112,7 +114,7 @@ fun MovieHeaderSection(
                     verticalAlignment = Alignment.CenterVertically
                 ){
                 Text(
-                        text = "WARNER BROS.",
+                        text = detailMovie.production,
                         style = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -130,7 +132,7 @@ fun MovieHeaderSection(
                         ) {
                             Text(text = "★", fontSize = 14.sp, color = Color.Black)
                             Text(
-                                text = "8.8",
+                                text = detailMovie.voteAverage.toString().take(3),
                                 style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold),
                                 color = Color.Black
                             )
@@ -139,12 +141,12 @@ fun MovieHeaderSection(
                 }
 
                 Text(
-                    text = "Inception",
+                    text = detailMovie.title,
                     style = TextStyle(fontSize = 26.sp, fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "2010 · 2h 28m",
+                    text = "${detailMovie?.releaseDate} · ${detailMovie?.runtime}m",
                     style = TextStyle(fontSize = 13.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -158,7 +160,23 @@ fun MovieHeaderSection(
 fun MovieHeaderSectionLightPreview() {
     FilmZoomTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MovieHeaderSection()
+            MovieHeaderSection(
+                detailMovie = MovieDetails(
+                    id = 1,
+                    title = "Inception",
+                    backdropPath = "",
+                    posterPath = "",
+                    releaseDate = "2010",
+                    runtime = "148",
+                    voteAverage = 8.8,
+                    production = "Warner Bros.",
+                    overview = "Un ladrón que roba secretos...",
+                    homepage = "",
+                    genres = emptyList(),
+                    director = "Christopher Nolan",
+                    cast = emptyList()
+                )
+            )
         }
     }
 }
@@ -168,7 +186,23 @@ fun MovieHeaderSectionLightPreview() {
 fun MovieHeaderSectionDarkPreview() {
     FilmZoomTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MovieHeaderSection()
+            MovieHeaderSection(
+                detailMovie = MovieDetails(
+                    id = 1,
+                    title = "Inception",
+                    backdropPath = "",
+                    posterPath = "",
+                    releaseDate = "2010",
+                    runtime = "148",
+                    voteAverage = 8.8,
+                    production = "Warner Bros.",
+                    overview = "Un ladrón que roba secretos...",
+                    homepage = "",
+                    genres = emptyList(),
+                    director = "Christopher Nolan",
+                    cast = emptyList()
+                )
+            )
         }
     }
 }

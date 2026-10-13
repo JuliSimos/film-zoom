@@ -24,8 +24,8 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieGenresSection(
-    genres: List<String> = listOf("Acción", "Ciencia ficción", "Suspenso"),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    genres: List<String>?
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -46,42 +46,46 @@ fun MovieGenresSection(
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            genres.forEach { genre ->
-                Surface(
-                    modifier = Modifier
-                    .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp),
-                        spotColor = Color.Black.copy(alpha = 0.20f)),
-                shape = RoundedCornerShape(24.dp),
-                    color = MaterialTheme.colorScheme.surface
+            if (genres.isNullOrEmpty()) return
+            else{
+                genres.forEach { genre ->
+                    Surface(
+                        modifier = Modifier
+                            .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp),
+                                spotColor = Color.Black.copy(alpha = 0.20f)),
+                        shape = RoundedCornerShape(24.dp),
+                        color = MaterialTheme.colorScheme.surface
                     ) {
-                    Text(
-                        text = genre,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                        style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+                        Text(
+                            text = genre,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                            style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
+
             }
         }
     }
 }
 
-@Preview(name = "Light Mode", showBackground = true)
-@Composable
-fun MovieGenresSectionLightPreview() {
-    FilmZoomTheme(darkTheme = false) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieGenresSection(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
-
-@Preview(name = "Dark Mode", showBackground = true)
-@Composable
-fun MovieGenresSectionDarkPreview() {
-    FilmZoomTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieGenresSection(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
+//@Preview(name = "Light Mode", showBackground = true)
+//@Composable
+//fun MovieGenresSectionLightPreview() {
+//    FilmZoomTheme(darkTheme = false) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieGenresSection()
+//        }
+//    }
+//}
+//
+//@Preview(name = "Dark Mode", showBackground = true)
+//@Composable
+//fun MovieGenresSectionDarkPreview() {
+//    FilmZoomTheme(darkTheme = true) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieGenresSection()
+//        }
+//    }
+//}

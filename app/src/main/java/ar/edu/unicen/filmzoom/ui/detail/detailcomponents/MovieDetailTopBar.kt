@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,11 +37,9 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieDetailTopBar(
+    modifier: Modifier = Modifier,
     title: String = "Detalle Película",
-    onBackClick: () -> Unit = {},
-    onShareClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onBackClick: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -66,7 +65,7 @@ fun MovieDetailTopBar(
             ) {
                 IconButton(onClick = onBackClick) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Volver atrás",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -75,22 +74,6 @@ fun MovieDetailTopBar(
                     text = title,
                     style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            // Derecha: Botón de compartir e Ícono de usuario
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
-                    .clickable { onProfileClick() },
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_user),
-                    contentDescription = stringResource(id = R.string.cd_profile_icon),
-                    tint = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.size(20.dp)
                 )
             }
         }

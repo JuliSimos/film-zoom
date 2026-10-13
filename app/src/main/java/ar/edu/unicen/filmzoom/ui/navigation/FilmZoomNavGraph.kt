@@ -2,12 +2,17 @@ package ar.edu.unicen.filmzoom.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ar.edu.unicen.filmzoom.ui.home.HomeScreen
 import ar.edu.unicen.filmzoom.ui.detail.MovieDetailScreen
+import ar.edu.unicen.filmzoom.ui.detail.MovieDetailViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @Composable
@@ -25,21 +30,21 @@ fun FilmZoomNavGraph(
         composable(route = "Movies") {
             HomeScreen(
                 onMovieClick = { movieId ->
-                    navController.navigate("MovieDetails")
+                    navController.navigate("movie_detail/$movieId")
                     //navController.navigate("MovieDetail/$movieId")
                 }
             )
         }
 
         // Pantalla de Detalle recibiendo el id_movie
-        composable (route = "MovieDetails") { //backStackEntry ->
-            //val movieId = backStackEntry.arguments?.getString("id_movie")?.toIntOrNull() ?: 0
-                // o getInt() si lo casteo
-            // Opcional: Aquí luego le pasarías el movieId a tu ViewModel de detalle
-            // val viewModel: MovieDetailViewModel = viewModel()
-            // val movieState = viewModel.uiState // o la llamada para buscar por ID
+        composable(
+            route = "movie_detail/{movieId}",
+            arguments = listOf(navArgument("movieId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val viewModel: MovieDetailViewModel = hiltViewModel()
 
             MovieDetailScreen(
+                viewModel = viewModel,
                 onBackClick = {
                     navController.popBackStack()
                 },

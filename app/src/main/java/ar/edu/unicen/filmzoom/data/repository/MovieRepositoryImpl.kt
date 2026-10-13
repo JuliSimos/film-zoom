@@ -30,9 +30,9 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovieDetail(movieId: Int): MovieDetails {
-        val detailDto = api.getMovieDetails(movieId,currentLanguage)
+        val detailDto = api.getMovieDetails(movieId, currentLanguage)
         val creditsDto = api.getMovieCredits(movieId, currentLanguage)
-        return detailDto.toDomain(creditsDto.crew)
+        return detailDto.toDomain(creditsDto.crew, creditsDto.cast)
     }
 
     // Métodos de la Wishlist (Favoritos)

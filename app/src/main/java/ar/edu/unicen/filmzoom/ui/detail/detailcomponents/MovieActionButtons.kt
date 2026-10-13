@@ -1,5 +1,6 @@
 package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,15 +30,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
+import ar.edu.unicen.filmzoom.domain.model.Movie
+import ar.edu.unicen.filmzoom.domain.model.MovieDetails
+import ar.edu.unicen.filmzoom.ui.detail.MovieDetailViewModel
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieActionButtons(
+    modifier: Modifier = Modifier,
+    isFavorite: Boolean = false, // O lo que necesite mostrar
     onWishlistClick: (Boolean) -> Unit = {},
-    onWebClick: () -> Unit = {},
-    onShareClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onWebsiteClick: () -> Unit = {},
+    onShareClick: () -> Unit = {}
 ) {
+
     // Estado local para manejar si está en deseados o no
     var isWishlisted by remember { mutableStateOf(false) }
 
@@ -90,17 +97,16 @@ fun MovieActionButtons(
             modifier = Modifier
                 .height(48.dp)
                 .width(48.dp)
-                .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp), spotColor = Color.Black.copy(alpha = 0.20f)),
+                .shadow(elevation = 4.dp, shape = RoundedCornerShape(24.dp), spotColor = Color.Black.copy(alpha = 0.20f))
+            .clickable { onWebsiteClick() },
             shape = RoundedCornerShape(24.dp),
-            color = MaterialTheme.colorScheme.surface,
-            onClick = onWebClick
+            color = MaterialTheme.colorScheme.surface
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_open_in_new),
                 contentDescription = "pagina oficial",
                 modifier = Modifier.padding(12.dp),
                 tint = MaterialTheme.colorScheme.primary
-
 
             )
 
@@ -125,23 +131,23 @@ fun MovieActionButtons(
         }
     }
 }
-
-@Preview(name = "Light Mode", showBackground = true)
-@Composable
-fun MovieActionButtonsLightPreview() {
-    FilmZoomTheme(darkTheme = false) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieActionButtons(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
-
-@Preview(name = "Dark Mode", showBackground = true)
-@Composable
-fun MovieActionButtonsDarkPreview() {
-    FilmZoomTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieActionButtons(modifier = Modifier.padding(16.dp))
-        }
-    }
-}
+//
+//@Preview(name = "Light Mode", showBackground = true)
+//@Composable
+//fun MovieActionButtonsLightPreview() {
+//    FilmZoomTheme(darkTheme = false) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieActionButtons(modifier = Modifier.padding(16.dp))
+//        }
+//    }
+//}
+//
+//@Preview(name = "Dark Mode", showBackground = true)
+//@Composable
+//fun MovieActionButtonsDarkPreview() {
+//    FilmZoomTheme(darkTheme = true) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieActionButtons(modifier = Modifier.padding(16.dp))
+//        }
+//    }
+//}

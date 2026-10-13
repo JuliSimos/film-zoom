@@ -1,4 +1,5 @@
 package ar.edu.unicen.filmzoom.ui.detail
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,27 +7,32 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieActionButtons
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieCastSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieDetailTopBar
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieGenresSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
-import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieDetailScreen(
+    modifier: Modifier = Modifier,
+    viewModel: MovieDetailViewModel,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
-    onWishlistClick: (Boolean) -> Unit = {},
-    modifier: Modifier = Modifier
+    onWishlistClick: (Boolean) -> Unit = {}
 ) {
+    val state by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         // Vinculamos el color de fondo del Scaffold al tema para que cambie entre claro y oscuro correctamente
@@ -35,8 +41,6 @@ fun MovieDetailScreen(
             MovieDetailTopBar(
                 title = "Detalle Película",
                 onBackClick = onBackClick,
-                onShareClick = onShareClick,
-                onProfileClick = onProfileClick
             )
         }
     ) { innerPadding ->
@@ -49,57 +53,68 @@ fun MovieDetailScreen(
         ) {
             // 1. Cabecera (Banner + Póster superpuesto + Título + Rating)
             item {
-                MovieHeaderSection()
+                MovieHeaderSection(
+                    detailMovie = state.detailMovie
+                )
             }
 
             // 2. Botones de acción principales (Deseados, Web, Compartir)
             item {
                 MovieActionButtons(
-                    onWishlistClick = onWishlistClick,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    onWebsiteClick = {
+                        val url = state.detailMovie?.homepage
+                        if (!url.isNullOrBlank()) {
+                            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                            context.startActivity(intent)
+                        }
+                    }
                 )
             }
 
             // 3. Géneros (Chips horizontales)
             item {
                 MovieGenresSection(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    genres = state.detailMovie?.genres ?: emptyList()
                 )
             }
 
             // 4. Sinopsis y Director
             item {
                 MovieSynopsisCard(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    overview = state.detailMovie?.overview ?: "",
+                    director = state.detailMovie?.director
                 )
             }
 
             // 5. Reparto principal
             item {
                 MovieCastSection(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    cast = state.detailMovie?.cast
                 )
             }
         }
     }
 }
 
-@Preview(name = "Light Mode", showBackground = true)
-@Composable
-fun MovieDetailScreenLightPreview() {
-    FilmZoomTheme(darkTheme = false) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieDetailScreen()
-        }
-    }
-}
-
-@Preview(name = "Dark Mode", showBackground = true)
-@Composable
-fun MovieDetailScreenDarkPreview() {
-    FilmZoomTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            MovieDetailScreen()
-        }
-    }
-}
+//@Preview(name = "Light Mode", showBackground = true)
+//@Composable
+//fun MovieDetailScreenLightPreview() {
+//    FilmZoomTheme(darkTheme = false) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieDetailScreen()
+//        }
+//    }
+//}
+//
+//@Preview(name = "Dark Mode", showBackground = true)
+//@Composable
+//fun MovieDetailScreenDarkPreview() {
+//    FilmZoomTheme(darkTheme = true) {
+//        Surface(color = MaterialTheme.colorScheme.background) {
+//            MovieDetailScreen()
+//        }
+//    }
+//}

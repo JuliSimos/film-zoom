@@ -6,6 +6,5 @@ data class HomeUiState(
     val isLoading : Boolean = false,
     val popularMovies: List<Movie> = emptyList(),
     val trendingMovies: List<Movie> = emptyList(),
-    //val dishMovies: List<Movie>
     val errorMessage: String? = null
 )
