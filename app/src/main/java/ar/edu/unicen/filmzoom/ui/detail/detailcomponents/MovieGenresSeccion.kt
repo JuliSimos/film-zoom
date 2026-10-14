@@ -15,11 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
@@ -32,9 +34,8 @@ fun MovieGenresSection(
         verticalArrangement = Arrangement.spacedBy(8.dp),
 
     ) {
-        // Título de la sección
         Text(
-            text = "GÉNEROS",
+            text = stringResource(R.string.detail_section_genres),
             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

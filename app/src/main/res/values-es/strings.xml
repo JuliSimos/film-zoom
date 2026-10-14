@@ -1,29 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App Information -->
+    <!-- Informacion de la App -->
     <string name="app_name">FilmZoom</string>
 
-    <!-- Top Bar & Header -->
+    <!-- Top Bar y Navegacion Principal -->
     <string name="home_title_popular">Populares</string>
     <string name="home_subtitle_billboard">Cartelera Global TMDB</string>
     <string name="home_tag_today">HOY</string>
 
-    <!-- Navigation Bar -->
     <string name="nav_popular">Populares</string>
     <string name="nav_tending">Tendencia</string>
-    <string name="nav_watchlist">Deseados</string>
+    <string name="nav_wishlist">Deseados</string>
 
-    <!-- Movie Card Formatting -->
+    <!-- Pantalla de Detalle - Secciones -->
+    <string name="detail_top_bar_title">Detalle Película</string>
+    <string name="detail_section_synopsis">SINOPSIS</string>
+    <string name="detail_section_genres">GÉNEROS</string>
+    <string name="detail_section_cast">REPARTO PRINCIPAL</string>
+    <string name="detail_see_all">Ver todo ></string>
+    <string name="detail_full_sheet">Ficha completa</string>
+
+
+
+
+    <!-- Formatos de Texto en Detalle -->
+    <string name="detail_director_format">Director: %1$s</string>
+    <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>
     <string name="movie_rating_format">%1$.1f</string>
 
-    <!-- Loading & State Messages -->
+
+    <!-- Botones de Accion -->
+    <string name="action_add_to_wishlist">Agregar a deseados</string>
+    <string name="action_in_your_list">En tu lista</string>
     <string name="loading_more_movies">Cargando más películas…</string>
 
-    <!-- Accessibility Descriptions -->
+    <!-- Accesibilidad (contentDescription) -->
     <string name="cd_search_icon">Buscar películas</string>
     <string name="cd_profile_icon">Perfil de usuario</string>
     <string name="cd_movie_poster">Póster de %1$s</string>
+    <string name="cd_movie_backdrop">Portada de la película %1$s</string>
     <string name="cd_movie_details">Ver detalles de %1$s</string>
+    <string name="cd_movie_voteAverage">Puntuación: %1$.1f</string>
+    <string name="cd_back_arrow">Volver atrás</string>
+    <string name="cd_actor_photo">Foto de %1$s</string>
+    <string name="cd_btn_wishlist">Botón para agregar película a la lista de deseados</string>
+    <string name="cd_btn_website">Página oficial</string>
+    <string name="cd_btn_share">Compartir</string>
+
 </resources>

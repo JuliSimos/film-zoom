@@ -20,11 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.MovieDetails
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import coil.compose.AsyncImage
@@ -52,7 +54,7 @@ fun MovieHeaderSection(
         ) {
             AsyncImage(
                 model = detailMovie.backdropPath,
-                contentDescription = "portada de la ${detailMovie.title}",
+                contentDescription = stringResource(R.string.cd_movie_backdrop, detailMovie.title),
                 modifier = Modifier
                     .fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -94,7 +96,7 @@ fun MovieHeaderSection(
             ) {
                 AsyncImage(
                     model = detailMovie.posterPath,
-                    contentDescription = "portada de la ${detailMovie.title}",
+                    contentDescription = stringResource(R.string.cd_movie_poster, detailMovie.title),
                     modifier = Modifier
                         .fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -146,7 +148,7 @@ fun MovieHeaderSection(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "${detailMovie?.releaseDate} · ${detailMovie?.runtime}m",
+                    text = stringResource(R.string.detail_movie_metadata_format, detailMovie.releaseDate.take(4), detailMovie.runtime),
                     style = TextStyle(fontSize = 13.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,6 +45,7 @@ fun MovieCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .semantics(mergeDescendants = true) {} // Fusiona el texto para TalkBack en un solo anuncio claro
             .clickable { onMovieClicked() },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
@@ -63,8 +66,8 @@ fun MovieCard(
                     .height(130.dp)
             ) {
                 AsyncImage(
-                    model = movie.posterPath, //no me gusta dejar una url absoluta
-                    contentDescription = "Póster de ${movie.title}",
+                    model = movie.posterPath,
+                    contentDescription = stringResource(R.string.cd_movie_poster, movie.title),
                     modifier = Modifier
                         .padding(4.dp)
                         .clip(RoundedCornerShape(5.dp)),
@@ -89,7 +92,7 @@ fun MovieCard(
                         text = movie.title,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface // Adapta texto primario
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     // Chip Rating
@@ -99,12 +102,13 @@ fun MovieCard(
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = null,
-                                tint = RatingStarLight, // #FFB300
+                                tint = RatingStarLight,
                                 modifier = Modifier.size(16.dp)
                             )
 
@@ -119,7 +123,7 @@ fun MovieCard(
                         }
                     }
                 }
-                // TÍTULO
+
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -138,7 +142,7 @@ fun MovieCard(
             // FLECHA A LA DERECHA
             Icon(
                 painter = painterResource(id = R.drawable.ic_single_arrow),
-                contentDescription = "Ver detalles",
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .size(24.dp)

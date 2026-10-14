@@ -36,7 +36,6 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 fun TopNavegationBar(
     modifier: Modifier = Modifier,
     onSearchClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -82,24 +81,6 @@ fun TopNavegationBar(
                     contentDescription = stringResource(id = R.string.cd_search_icon),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(22.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
-                    .clickable { onProfileClick() },
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_user),
-                    contentDescription = stringResource(id = R.string.cd_profile_icon),
-                    tint = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.size(20.dp)
                 )
             }
         }

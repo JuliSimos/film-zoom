@@ -107,7 +107,7 @@ fun MovieDetailResponseDto.toDomain(
         releaseDate = releaseDate.orEmpty(),
         runtime = runtime,
         voteAverage = voteAverage,
-        homepage = homepage,
+        homepage = homepage.orEmpty(),
         genres = genres.map { it.name },
         production = productionCompanies?.firstOrNull()?.name.orEmpty(),
         director = directorName,

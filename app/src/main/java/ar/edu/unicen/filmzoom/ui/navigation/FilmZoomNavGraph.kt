@@ -31,7 +31,6 @@ fun FilmZoomNavGraph(
             HomeScreen(
                 onMovieClick = { movieId ->
                     navController.navigate("movie_detail/$movieId")
-                    //navController.navigate("MovieDetail/$movieId")
                 }
             )
         }
@@ -49,7 +48,6 @@ fun FilmZoomNavGraph(
                     navController.popBackStack()
                 },
                 onShareClick = { /* Compartir */ },
-                onProfileClick = { /* Perfil */ },
                 onWishlistClick = { /* Deseados */ }
             )
         }

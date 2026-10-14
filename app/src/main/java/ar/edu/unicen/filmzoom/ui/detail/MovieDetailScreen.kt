@@ -27,7 +27,6 @@ fun MovieDetailScreen(
     viewModel: MovieDetailViewModel,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {},
     onWishlistClick: (Boolean) -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -35,12 +34,10 @@ fun MovieDetailScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        // Vinculamos el color de fondo del Scaffold al tema para que cambie entre claro y oscuro correctamente
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MovieDetailTopBar(
-                title = "Detalle Película",
-                onBackClick = onBackClick,
+                onBackClick = onBackClick
             )
         }
     ) { innerPadding ->
@@ -57,16 +54,23 @@ fun MovieDetailScreen(
                     detailMovie = state.detailMovie
                 )
             }
-
             // 2. Botones de acción principales (Deseados, Web, Compartir)
+            val hasWebsite = !state.detailMovie?.homepage.isNullOrBlank()
             item {
                 MovieActionButtons(
+                    hasWebsite = hasWebsite,
                     onWebsiteClick = {
                         val url = state.detailMovie?.homepage
-                        if (!url.isNullOrBlank()) {
-                            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                        if (hasWebsite) {
+                            val intent = Intent(Intent.ACTION_VIEW, url!!.toUri())
                             context.startActivity(intent)
                         }
+                    },
+                    onShareClick = {
+                        // Lógica de compartir
+                    },
+                    onWishlistClick = { isWishlisted ->
+                        // Lógica de favoritos/deseados
                     }
                 )
             }

@@ -26,7 +26,6 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onSearchClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {},
     onMovieClick: (Int) -> Unit = {}
 ) {
 
@@ -38,7 +37,6 @@ fun HomeScreen(
         topBar = {
             TopNavegationBar(
                 onSearchClick = onSearchClick,
-                onProfileClick = onProfileClick
             )
         },
         bottomBar = {

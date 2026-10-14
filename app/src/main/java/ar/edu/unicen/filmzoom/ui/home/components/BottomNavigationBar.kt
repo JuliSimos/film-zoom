@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,7 +59,7 @@ fun BottomNavigationBar(
             ) {
                 BottomNavItem(
                     iconRes = R.drawable.ic_home,
-                    label = stringResource(id = R.string.nav_popular),
+                    label = stringResource(R.string.nav_popular),
                     isSelected = selectedTab == 0,
                     onClick = { onTabSelected(0) },
                     modifier = Modifier.weight(1f)
@@ -73,7 +75,7 @@ fun BottomNavigationBar(
 
                 BottomNavItem(
                     iconRes = R.drawable.ic_heart,
-                    label = stringResource(id = R.string.nav_watchlist),
+                    label = stringResource(id = R.string.nav_wishlist),
                     isSelected = selectedTab == 2,
                     onClick = { onTabSelected(2) },
                     modifier = Modifier.weight(1f)
@@ -101,10 +103,13 @@ private fun BottomNavItem(
 
     Column(
         modifier = modifier
-            .clickable(
+            // Usa selectable en lugar de clickable para avisarle a TalkBack que es una pestaña y si está seleccionada
+            .selectable(
+                selected = isSelected,
+                onClick = onClick,
+                role = Role.Tab, // Anuncia "Pestaña, seleccionada/no seleccionada"
                 interactionSource = remember { MutableInteractionSource() },
                 indication = ripple(bounded = false, radius = 32.dp),
-                onClick = onClick
             )
             .padding(vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -112,7 +117,7 @@ private fun BottomNavItem(
     ) {
         Icon(
             painter = painterResource(id = iconRes),
-            contentDescription = label,
+            contentDescription = null,
             tint = contentColor,
             modifier = Modifier.size(26.dp)
         )

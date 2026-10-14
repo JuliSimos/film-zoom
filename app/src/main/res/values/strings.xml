@@ -2,27 +2,45 @@
     <!-- App Information -->
     <string name="app_name">FilmZoom</string>
 
-    <!-- Top Bar & Header -->
+    <!-- Top Bar & Main Navigation -->
     <string name="home_title_popular">Popular</string>
     <string name="home_subtitle_billboard">TMDB Global Billboard</string>
     <string name="home_tag_today">TODAY</string>
 
-    <!-- Navigation Bar -->
     <string name="nav_popular">Popular</string>
-    <string name="nav_tending">Tending</string>
-    <string name="nav_watchlist">Watchlist</string>
+    <string name="nav_tending">Trending</string>
+    <string name="nav_wishlist">Wishlist</string>
 
-    <!-- Movie Card Formatting -->
+    <!-- Movie Detail Screen - Sections -->
+    <string name="detail_top_bar_title">Movie Details</string>
+    <string name="detail_section_synopsis">SYNOPSIS</string>
+    <string name="detail_section_genres">GENRES</string>
+    <string name="detail_section_cast">MAIN CAST</string>
+    <string name="detail_see_all">See all ></string>
+    <string name="detail_full_sheet">Full details</string>
+
+    <!-- Movie Detail Text Formats -->
+    <string name="detail_director_format">🎬 Director: %1$s</string>
+    <string name="detail_movie_metadata_format">%1$s · %2$d min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>
     <string name="movie_rating_format">%1$.1f</string>
 
-    <!-- Loading & State Messages -->
+    <!-- Action Buttons -->
+    <string name="action_add_to_wishlist">Add to wishlist</string>
+    <string name="action_in_your_list">In your list</string>
     <string name="loading_more_movies">Loading more movies…</string>
 
-    <!-- Accessibility Descriptions -->
+    <!-- Accessibility Descriptions (contentDescription) -->
     <string name="cd_search_icon">Search movies</string>
     <string name="cd_profile_icon">User profile</string>
     <string name="cd_movie_poster">Poster for %1$s</string>
+    <string name="cd_movie_backdrop">Backdrop for %1$s</string>
     <string name="cd_movie_details">View details for %1$s</string>
+    <string name="cd_movie_voteAverage">Rating: %1$.1f</string>
+    <string name="cd_back_arrow">Go back</string>
+    <string name="cd_actor_photo">Photo of %1$s</string>
+    <string name="cd_btn_wishlist">Button to add movie to wishlist</string>
+    <string name="cd_btn_website">Official website</string>
+    <string name="cd_btn_share">Share</string>
 </resources>

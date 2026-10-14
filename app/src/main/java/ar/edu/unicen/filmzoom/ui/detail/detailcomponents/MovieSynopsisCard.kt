@@ -5,18 +5,25 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.unicen.filmzoom.R
 
 @Composable
 fun MovieSynopsisCard(
@@ -36,41 +43,46 @@ fun MovieSynopsisCard(
     ) {
         // Título de la sección
         Text(
-            text = "SINOPSIS",
+            text = stringResource(R.string.detail_section_synopsis),
             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        // Contenedor de contenido (sin Surface adicional para mantener el mismo fondo)
+        // Contenedor de info
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                //Text(text = movie.overview) // O podés cortarla con .take(100) + "..." si querés un resumen corto
                 Text(
                     text = overview,
                     style = TextStyle(fontSize = 14.sp),
                     color = MaterialTheme.colorScheme.onSurface
                 )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Indicador del director
-                    Text(
-                        text = "🎬 Director: $director", //Remplazar esta seccion con un icono y contenedor row
-                        style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
-                    Text(
-                        text = "Ficha completa",
-                        style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                // Fila para el Director (Ícono + Texto)
+                if (!director.isNullOrBlank()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Indicador del director
+                        Icon(
+                            painter = painterResource(R.drawable.ic_film),
+                            contentDescription = null,
+                            modifier = modifier.size(18.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.detail_director_format,
+                                director),
+                            style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -27,6 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +41,6 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 @Composable
 fun MovieDetailTopBar(
     modifier: Modifier = Modifier,
-    title: String = "Detalle Película",
     onBackClick: () -> Unit = {}
 ) {
     Card(
@@ -63,15 +65,23 @@ fun MovieDetailTopBar(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = onBackClick) {
+                //Para seguir con la idea de accesibilidad
+                val backArrowDescription = stringResource(R.string.cd_back_arrow)
+
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = Modifier.semantics{
+                        contentDescription = backArrowDescription
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver atrás",
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 Text(
-                    text = title,
+                    text = stringResource(R.string.detail_top_bar_title),
                     style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
