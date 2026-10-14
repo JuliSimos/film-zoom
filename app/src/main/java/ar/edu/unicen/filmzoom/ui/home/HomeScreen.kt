@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unicen.filmzoom.ui.home.components.BottomNavigationBar
+import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.home.components.TopNavegationBar
 import ar.edu.unicen.filmzoom.ui.home.components.MovieGridScreen
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
@@ -47,13 +48,17 @@ fun HomeScreen(
         }
         
     ) { innerPadding ->
+        if(state.isLoading){
+            LoadingCardsWireframe()
+        }else{
+            MovieGridScreen(
+                modifier = modifier,
+                innerPadding = innerPadding,
+                movies = state.popularMovies,
+                onMovieClick = onMovieClick
+            )
+        }
 
-        MovieGridScreen(
-            modifier = modifier,
-            innerPadding = innerPadding,
-            movies = state.popularMovies,
-            onMovieClick = onMovieClick
-        )
     }
 }
 

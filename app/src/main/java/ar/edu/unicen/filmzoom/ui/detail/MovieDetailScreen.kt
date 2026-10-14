@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.LoadingDetailWireframe
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieActionButtons
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieCastSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieDetailTopBar
@@ -41,63 +42,67 @@ fun MovieDetailScreen(
             )
         }
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            contentPadding = PaddingValues(bottom = 32.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            // 1. Cabecera (Banner + Póster superpuesto + Título + Rating)
-            item {
-                MovieHeaderSection(
-                    detailMovie = state.detailMovie
-                )
-            }
-            // 2. Botones de acción principales (Deseados, Web, Compartir)
-            val hasWebsite = !state.detailMovie?.homepage.isNullOrBlank()
-            item {
-                MovieActionButtons(
-                    hasWebsite = hasWebsite,
-                    onWebsiteClick = {
-                        val url = state.detailMovie?.homepage
-                        if (hasWebsite) {
-                            val intent = Intent(Intent.ACTION_VIEW, url!!.toUri())
-                            context.startActivity(intent)
+        if (state.isLoading || state.detailMovie == null) {
+            LoadingDetailWireframe()
+        }else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentPadding = PaddingValues(bottom = 32.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // 1. Cabecera (Banner + Póster superpuesto + Título + Rating)
+                item {
+                    MovieHeaderSection(
+                        detailMovie = state.detailMovie
+                    )
+                }
+                // 2. Botones de acción principales (Deseados, Web, Compartir)
+                val hasWebsite = !state.detailMovie?.homepage.isNullOrBlank()
+                item {
+                    MovieActionButtons(
+                        hasWebsite = hasWebsite,
+                        onWebsiteClick = {
+                            val url = state.detailMovie?.homepage
+                            if (hasWebsite) {
+                                val intent = Intent(Intent.ACTION_VIEW, url!!.toUri())
+                                context.startActivity(intent)
+                            }
+                        },
+                        onShareClick = {
+                            // Lógica de compartir
+                        },
+                        onWishlistClick = { isWishlisted ->
+                            // Lógica de favoritos/deseados
                         }
-                    },
-                    onShareClick = {
-                        // Lógica de compartir
-                    },
-                    onWishlistClick = { isWishlisted ->
-                        // Lógica de favoritos/deseados
-                    }
-                )
-            }
+                    )
+                }
 
-            // 3. Géneros (Chips horizontales)
-            item {
-                MovieGenresSection(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    genres = state.detailMovie?.genres ?: emptyList()
-                )
-            }
+                // 3. Géneros (Chips horizontales)
+                item {
+                    MovieGenresSection(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        genres = state.detailMovie?.genres ?: emptyList()
+                    )
+                }
 
-            // 4. Sinopsis y Director
-            item {
-                MovieSynopsisCard(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    overview = state.detailMovie?.overview ?: "",
-                    director = state.detailMovie?.director
-                )
-            }
+                // 4. Sinopsis y Director
+                item {
+                    MovieSynopsisCard(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        overview = state.detailMovie?.overview ?: "",
+                        director = state.detailMovie?.director
+                    )
+                }
 
-            // 5. Reparto principal
-            item {
-                MovieCastSection(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    cast = state.detailMovie?.cast
-                )
+                // 5. Reparto principal
+                item {
+                    MovieCastSection(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        cast = state.detailMovie?.cast
+                    )
+                }
             }
         }
     }

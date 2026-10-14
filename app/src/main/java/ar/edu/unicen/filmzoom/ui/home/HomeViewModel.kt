@@ -31,7 +31,6 @@ class HomeViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
 
             try{
-                //Traemos los datos del repositorio
                 val popular = movieRepository.getPopularMovies()
                 val trending = movieRepository.getTrendingMovies()
 
