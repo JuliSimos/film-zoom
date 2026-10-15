@@ -15,6 +15,7 @@ ksp = "2.1.0-1.0.29"
 coil = "2.7.0"
 navigation = "2.8.7"
 okhttp-logging = "4.12.0"
+paging = "3.3.5"
 
 
 [libraries]
@@ -48,6 +49,11 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+# Paging
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+
 
 #Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }

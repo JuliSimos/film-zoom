@@ -23,7 +23,7 @@ interface MovieRepository {
 
     // Al usar flow, cuando se marca o desmarca una película
     // en el detalle, la lista de deseos de la Home se actualiza sola en tiempo real
-    fun getWishlistMovies(): Flow<List<Movie>>
+    fun getWishlistMovies(): List<Movie>
 
     // Métodos para gestionar los deseos localmente
     suspend fun addToWishlist(movie: Movie)

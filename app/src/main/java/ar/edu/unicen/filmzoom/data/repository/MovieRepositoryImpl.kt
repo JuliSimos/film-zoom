@@ -37,8 +37,8 @@ class MovieRepositoryImpl @Inject constructor(
 
     // Métodos de la Wishlist (Favoritos)
     // Después se conecta a una base de datos local (Room)
-    override fun getWishlistMovies(): Flow<List<Movie>> {
-        return flow { emit(emptyList()) }
+    override fun getWishlistMovies(): List<Movie>{
+        return emptyList()
     }
 
     override suspend fun addToWishlist(movie: Movie) {

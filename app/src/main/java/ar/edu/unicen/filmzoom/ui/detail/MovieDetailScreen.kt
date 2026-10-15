@@ -62,6 +62,7 @@ fun MovieDetailScreen(
                 val hasWebsite = !state.detailMovie?.homepage.isNullOrBlank()
                 item {
                     MovieActionButtons(
+                        modifier = Modifier.padding(horizontal = 16.dp),
                         hasWebsite = hasWebsite,
                         onWebsiteClick = {
                             val url = state.detailMovie?.homepage
