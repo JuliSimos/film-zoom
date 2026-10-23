@@ -13,8 +13,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import ar.edu.unicen.filmzoom.ui.components.MessaggeError
 import ar.edu.unicen.filmzoom.ui.home.components.BottomNavigationBar
 import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.home.components.TopNavegationBar
@@ -27,7 +29,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onSearchClick: () -> Unit = {},
-    onMovieClick: (Int) -> Unit = {}
+    onMovieClick: (Int) -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -52,7 +54,6 @@ fun HomeScreen(
             BottomNavigationBar(
                 selectedTab = selectedTab,
                 onTabSelected = { index ->
-                    // Al tocar la barra inferior, deslizamos la pantalla suavemente hacia la página seleccionada
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(index)
                     }
@@ -65,25 +66,40 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            if (state.isLoading) {
+            if (state is HomeUiState.Loading || state is HomeUiState.Error) {
                 LoadingCardsWireframe()
-            } else {
-                // 2. Envolvemos las listas en un HorizontalPager para permitir el gesto de deslizar
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.fillMaxSize()
-                ) { page ->
-                    // El parámetro 'page' representa el índice actual (0 o 1)
-                    val moviesToDisplay = when (page) {
-                        0 -> state.popularMovies
-                        1 -> state.trendingMovies
-                        else -> emptyList()
-                    }
+            }
+            // 2. Evaluamos los diferentes estados de la UI limpiamente con un 'when'
+            when (val state = state) {
+                is HomeUiState.Loading -> { }
 
-                    MovieGridScreen(
-                        movies = moviesToDisplay,
-                        onMovieClick = onMovieClick
+                is HomeUiState.Error -> {
+                    // Muestra el por qué ocurrió y cómo solucionarlo que vinieron del Repo/ViewModel
+                    MessaggeError(
+                        message = stringResource(id = state.message),
+                        solution = stringResource(id = state.solution),
+                        onRetry = {viewModel.retry() },
+                        onDismiss = { }
                     )
+                }
+
+                is HomeUiState.Success -> {
+                    // 3. Cuando es exitoso, desplegamos tu HorizontalPager con las listas correspondientes
+                    HorizontalPager(
+                        state = pagerState,
+                        modifier = Modifier.fillMaxSize()
+                    ) { page ->
+                        val moviesToDisplay = when (page) {
+                            0 -> state.popularMovies
+                            1 -> state.trendingMovies
+                            else -> emptyList()
+                        }
+
+                        MovieGridScreen(
+                            movies = moviesToDisplay,
+                            onMovieClick = onMovieClick
+                        )
+                    }
                 }
             }
         }

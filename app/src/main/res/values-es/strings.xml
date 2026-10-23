@@ -4,18 +4,16 @@
 
     <!-- Top Bar y Navegacion Principal -->
     <string name="home_title_popular">Populares</string>
-    <string name="home_subtitle_billboard">Cartelera Global TMDB</string>
-    <string name="home_tag_today">HOY</string>
 
     <string name="nav_popular">Populares</string>
     <string name="nav_tending">Tendencia</string>
     <string name="nav_wishlist">Deseados</string>
 
     <!-- Pantalla de Detalle - Secciones -->
-    <string name="detail_top_bar_title">Detalle Película</string>
-    <string name="detail_section_synopsis">SINOPSIS</string>
-    <string name="detail_section_genres">GÉNEROS</string>
-    <string name="detail_section_cast">REPARTO PRINCIPAL</string>
+    <string name="detail_top_bar_title">Detalle película</string>
+    <string name="detail_section_synopsis">Sinopsis</string>
+    <string name="detail_section_genres">Géneros</string>
+    <string name="detail_section_cast">Reparto principal</string>
     <string name="detail_see_all">Ver todo ></string>
     <string name="detail_full_sheet">Ficha completa</string>
 
@@ -37,7 +35,6 @@
 
     <!-- Accesibilidad (contentDescription) -->
     <string name="cd_search_icon">Buscar películas</string>
-    <string name="cd_profile_icon">Perfil de usuario</string>
     <string name="cd_movie_poster">Póster de %1$s</string>
     <string name="cd_movie_backdrop">Portada de la película %1$s</string>
     <string name="cd_movie_details">Ver detalles de %1$s</string>
@@ -48,4 +45,17 @@
     <string name="cd_btn_website">Página oficial</string>
     <string name="cd_btn_share">Compartir</string>
 
+    <!-- Errores de Red / Sin Conexión -->
+    <string name="error_no_internet_title">Sin conexión a internet</string>
+    <string name="error_no_internet_solution">Comprobá que el Wi-Fi o los datos móviles estén activados</string>
+
+    <!-- Errores del Servidor (HTTP) -->
+    <string name="error_operation_failed">No pudimos completar la operación</string>
+    <string name="error_404">No encontramos el contenido solicitado</string>
+    <string name="error_500">El servidor está experimentando problemas. Intentá más tarde</string>
+    <string name="error_server_generic">Ocurrió un error en el servidor (%1$d)</string>
+
+    <!-- Errores Inesperados -->
+    <string name="error_unexpected_title">Ocurrió un error inesperado</string>
+    <string name="error_unexpected_solution">Intentá nuevamente más tarde</string>
 </resources>

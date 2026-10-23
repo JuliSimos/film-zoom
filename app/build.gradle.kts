@@ -19,8 +19,8 @@ android {
 
     defaultConfig {
         applicationId = "ar.edu.unicen.filmzoom"
-        minSdk = 26
         targetSdk = 35
+        minSdk = 26
         versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
 
@@ -82,6 +82,7 @@ dependencies {
     // Core & Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.compose.ui)
 
     // Hilt (Inyección de dependencias)
     implementation(libs.hilt.android)
@@ -105,6 +106,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // Debugging / Previews
     debugImplementation(libs.androidx.compose.ui.test.manifest)

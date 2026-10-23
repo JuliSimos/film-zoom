@@ -2,9 +2,15 @@ package ar.edu.unicen.filmzoom.ui.home
 
 import ar.edu.unicen.filmzoom.domain.model.Movie
 
-data class HomeUiState(
-    val isLoading : Boolean = false,
-    val popularMovies: List<Movie> = emptyList(),
-    val trendingMovies: List<Movie> = emptyList(),
-    val errorMessage: String? = null
-)
+sealed interface HomeUiState {
+    object Loading : HomeUiState
+    data class Success(
+        val popularMovies: List<Movie>,
+        val trendingMovies: List<Movie>
+    ) : HomeUiState
+    data class Error(
+        val message: Int,
+        val solution: Int,
+        val showRetry: Boolean = true
+    ) : HomeUiState
+}

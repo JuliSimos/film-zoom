@@ -6,7 +6,7 @@ val Primary = Color(0xFF1683FF)
 val PrimaryContainerLight = Color(0xFFDCE8FF)
 val PrimaryContainerDark = Color(0xFF0E3663)
 
-val AccentYellow = Color(0xFFFB300) // Ajustado según tu paleta: #FFB300 para luz y #FFCA28 para oscuridad si prefieres
+val AccentYellow = Color(0xFFFB300)
 val RatingStarLight = Color(0xFFFFB300)
 val RatingStarDark = Color(0xFFFFCA28)
 

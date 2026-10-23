@@ -1,5 +1,6 @@
 package ar.edu.unicen.filmzoom.domain.repository
 
+import ar.edu.unicen.filmzoom.data.repository.NetworkResult
 import ar.edu.unicen.filmzoom.domain.model.Movie
 import ar.edu.unicen.filmzoom.domain.model.MovieDetails
 
@@ -10,7 +11,7 @@ interface MovieRepository {
     // --- 1. Origen Remoto (API TMDB) ---
 
     // Para la sección de Populares
-    suspend fun getPopularMovies(): List<Movie>
+    suspend fun getPopularMovies(): NetworkResult<List<Movie>>
 
     // Para la sección de Tendencias
     suspend fun getTrendingMovies(): List<Movie>

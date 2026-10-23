@@ -4,18 +4,16 @@
 
     <!-- Top Bar & Main Navigation -->
     <string name="home_title_popular">Popular</string>
-    <string name="home_subtitle_billboard">TMDB Global Billboard</string>
-    <string name="home_tag_today">TODAY</string>
 
     <string name="nav_popular">Popular</string>
     <string name="nav_tending">Trending</string>
     <string name="nav_wishlist">Wishlist</string>
 
     <!-- Movie Detail Screen - Sections -->
-    <string name="detail_top_bar_title">Movie Details</string>
-    <string name="detail_section_synopsis">SYNOPSIS</string>
-    <string name="detail_section_genres">GENRES</string>
-    <string name="detail_section_cast">MAIN CAST</string>
+    <string name="detail_top_bar_title">Movie details</string>
+    <string name="detail_section_synopsis">Synopsis</string>
+    <string name="detail_section_genres">Genres</string>
+    <string name="detail_section_cast">Main cast</string>
     <string name="detail_see_all">See all ></string>
     <string name="detail_full_sheet">Full details</string>
 
@@ -33,7 +31,6 @@
 
     <!-- Accessibility Descriptions (contentDescription) -->
     <string name="cd_search_icon">Search movies</string>
-    <string name="cd_profile_icon">User profile</string>
     <string name="cd_movie_poster">Poster for %1$s</string>
     <string name="cd_movie_backdrop">Backdrop for %1$s</string>
     <string name="cd_movie_details">View details for %1$s</string>
@@ -43,4 +40,18 @@
     <string name="cd_btn_wishlist">Button to add movie to wishlist</string>
     <string name="cd_btn_website">Official website</string>
     <string name="cd_btn_share">Share</string>
+
+    <!-- Network / No Connection Errors -->
+    <string name="error_no_internet_title">No internet connection</string>
+    <string name="error_no_internet_solution">Check that Wi-Fi or mobile data are enabled</string>
+
+    <!-- Server (HTTP) Errors -->
+    <string name="error_operation_failed">We couldn\'t complete the operation</string>
+    <string name="error_404">We couldn\'t find the requested content</string>
+    <string name="error_500">The server is experiencing issues. Try again later</string>
+    <string name="error_server_generic">A server error occurred (%1$d)</string>
+
+    <!-- Unexpected Errors -->
+    <string name="error_unexpected_title">An unexpected error occurred</string>
+    <string name="error_unexpected_solution">Please try again later</string>
 </resources>
