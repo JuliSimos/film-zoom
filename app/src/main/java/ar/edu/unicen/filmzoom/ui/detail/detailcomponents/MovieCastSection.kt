@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,12 +19,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.CastMember
+import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import coil.compose.AsyncImage
 
 @Composable
@@ -37,7 +42,6 @@ fun MovieCastSection(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Cabecera de la sección ("REPARTO PRINCIPAL", contador y "Ver todo >")
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -48,11 +52,10 @@ fun MovieCastSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "REPARTO PRINCIPAL",
+                    text = stringResource(id = R.string.detail_section_cast),
                     style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                // Badge de cantidad de roles
                 Surface(
                     shape = RoundedCornerShape(8.dp),
                     color = MaterialTheme.colorScheme.surfaceVariant
@@ -67,13 +70,12 @@ fun MovieCastSection(
             }
 
             Text(
-                text = "Ver todo >",
+                text = "Ver todo >", //ACTUALIZAR STRING
                 style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.primary
             )
         }
 
-        // Lista horizontal de actores
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -94,19 +96,17 @@ fun CastMemberItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        // Círculo simulando la foto del actor
         Surface(
             modifier = Modifier
-                .size(64.dp) // Ancho y alto iguales para garantizar un círculo perfecto
-                .padding(vertical = 4.dp),
-            shape = RoundedCornerShape(50),
-            color = MaterialTheme.colorScheme.surfaceVariant
+                .size(60.dp),
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             AsyncImage(
                 model = actor.profilePath,
-                contentDescription = "foto de ${actor.name}",
+                contentDescription = stringResource(R.string.cd_actor_photo , actor.name),
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop // Recorta la imagen para llenar el círculo sin deformarse
+                contentScale = ContentScale.Crop
             )
         }
 
@@ -127,22 +127,30 @@ fun CastMemberItem(
     }
 }
 
-//@Preview(name = "Light Mode", showBackground = true)
-//@Composable
-//fun MovieCastSectionLightPreview() {
-//    FilmZoomTheme(darkTheme = false) {
-//        Surface(color = MaterialTheme.colorScheme.background) {
-//            MovieCastSection(modifier = Modifier.padding(16.dp))
-//        }
-//    }
-//}
-//
-//@Preview(name = "Dark Mode", showBackground = true)
-//@Composable
-//fun MovieCastSectionDarkPreview() {
-//    FilmZoomTheme(darkTheme = true) {
-//        Surface(color = MaterialTheme.colorScheme.background) {
-//            MovieCastSection(modifier = Modifier.padding(16.dp))
-//        }
-//    }
-//}
+private val previewCast = listOf(
+    CastMember(id = 1, name = "Tom Holland", character = "Peter Parker", profilePath = ""),
+    CastMember(id = 2, name = "Zendaya", character = "MJ", profilePath = ""),
+    CastMember(id = 3, name = "Benedict Cumberbatch", character = "Doctor Strange", profilePath = ""),
+    CastMember(id = 4, name = "Jacob Batalon", character = "Ned Leeds", profilePath = ""),
+    CastMember(id = 5, name = "Jon Favreau", character = "Happy Hogan", profilePath = "")
+)
+
+@Preview(name = "Light Mode", showBackground = true)
+@Composable
+fun MovieCastSectionLightPreview() {
+    FilmZoomTheme(darkTheme = false) {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            MovieCastSection(cast = previewCast, modifier = Modifier.padding(16.dp))
+        }
+    }
+}
+
+@Preview(name = "Dark Mode", showBackground = true)
+@Composable
+fun MovieCastSectionDarkPreview() {
+    FilmZoomTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            MovieCastSection(cast = previewCast, modifier = Modifier.padding(16.dp))
+        }
+    }
+}

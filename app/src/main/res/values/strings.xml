@@ -28,6 +28,8 @@
     <string name="action_add_to_wishlist">Add to wishlist</string>
     <string name="action_in_your_list">In your list</string>
     <string name="loading_more_movies">Loading more movies…</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_go_back">Go back</string>
 
     <!-- Accessibility Descriptions (contentDescription) -->
     <string name="cd_search_icon">Search movies</string>

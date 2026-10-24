@@ -44,29 +44,32 @@ class HomeViewModel @Inject constructor(
                     _uiState.value = HomeUiState.Loading
                 }
                 is NetworkResult.Error -> {
-                    val (messageResId, solutionResId) = when (result.errorType){
-                        AppError.NO_INTERNET -> Pair(
-                            R.string.error_no_internet_title,
-                            R.string.error_no_internet_solution
+                    _uiState.value = when (result.errorType) {
+                        AppError.NO_INTERNET -> HomeUiState.Error(
+                            message = R.string.error_no_internet_title,
+                            solution = R.string.error_no_internet_solution,
+                            buttonText = R.string.action_retry,
+                            isRetry = true
                         )
-                        AppError.NOT_FOUND -> Pair(
-                            R.string.error_unexpected_title,
-                            R.string.error_404
+                        AppError.NOT_FOUND -> HomeUiState.Error(
+                            message = R.string.error_unexpected_title,
+                            solution = R.string.error_404,
+                            buttonText = R.string.action_retry,
+                            isRetry = true
                         )
-                        AppError.SERVER -> Pair(
-                            R.string.error_operation_failed,
-                            R.string.error_500
+                        AppError.SERVER -> HomeUiState.Error(
+                            message = R.string.error_operation_failed,
+                            solution = R.string.error_500,
+                            buttonText = R.string.action_retry,
+                            isRetry = true
                         )
-                        AppError.UNKNOWN -> Pair(
-                            R.string.error_unexpected_title,
-                            R.string.error_unexpected_solution
+                        AppError.UNKNOWN -> HomeUiState.Error(
+                            message = R.string.error_unexpected_title,
+                            solution = R.string.error_unexpected_solution,
+                            buttonText = R.string.action_retry,
+                            isRetry = true
                         )
                     }
-
-                    _uiState.value = HomeUiState.Error(
-                        message = messageResId,
-                        solution = solutionResId
-                    )
                 }
             }
         }

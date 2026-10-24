@@ -32,6 +32,8 @@
     <string name="action_add_to_wishlist">Agregar a deseados</string>
     <string name="action_in_your_list">En tu lista</string>
     <string name="loading_more_movies">Cargando más películas…</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="action_go_back">Volver</string>
 
     <!-- Accesibilidad (contentDescription) -->
     <string name="cd_search_icon">Buscar películas</string>

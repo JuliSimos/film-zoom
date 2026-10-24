@@ -15,7 +15,7 @@ interface TmdbApiService {
 
     @GET("trending/movie/{time_window}")
     suspend fun getTrendingMovies(
-        @Path("time_window") timeWindow: String = "week", // Puede ser "day" o "week", podria agregar una funcionalidad que permita modificarlo
+        @Path("time_window") timeWindow: String = "week",
         @Query("language") language: String
     ): MoviesPageResponseDto
 

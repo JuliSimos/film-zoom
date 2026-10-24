@@ -17,16 +17,13 @@ interface MovieRepository {
     suspend fun getTrendingMovies(): List<Movie>
 
     // Para la pantalla de Detalle
-    suspend fun getMovieDetail(movieId: Int): MovieDetails
+    suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails>
 
 
     // --- 2. Origen Local (Deseados / Favoritos) ---
-
-    // Al usar flow, cuando se marca o desmarca una película
-    // en el detalle, la lista de deseos de la Home se actualiza sola en tiempo real
     fun getWishlistMovies(): List<Movie>
 
-    // Métodos para gestionar los deseos localmente
+    // Pendiente: Métodos para gestionar los deseos localmente
     suspend fun addToWishlist(movie: Movie)
 
     suspend fun removeFromWishlist(movieId: Int)

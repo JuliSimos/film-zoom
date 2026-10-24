@@ -1,20 +1,15 @@
 package ar.edu.unicen.filmzoom.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -28,9 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,11 +33,13 @@ import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
+
 @Composable
 fun MessaggeError(
     message: String,
     solution: String,
-    onRetry: () -> Unit,
+    buttonText: String,
+    onActionClick: () -> Unit,
     onDismiss: () -> Unit
 ) {
     Box(
@@ -60,35 +55,22 @@ fun MessaggeError(
                     MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(16.dp)
                 )
-                .padding(14.dp,14.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(14.dp, 14.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            // 🔹 CABECERA: Usamos un Box para superponer el título al centro y la cruz a la derecha
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth(),
+
             ) {
-                // 1. Ícono y título agrupados y centrados en el Box
-                Column(
-                    modifier = Modifier
-                        .padding(top = 24.dp)
-                        .align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Icon(
-                        modifier = Modifier.size(48.dp),
-                        painter = painterResource(R.drawable.ic_error),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error,
-                    )
                     Text(
                         text = "Error",
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.Medium,
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.align(Alignment.BottomStart)
                     )
-                }
 
                 // 2. Botón de cerrar pegado estrictamente a la esquina superior derecha
                 IconButton(
@@ -107,24 +89,21 @@ fun MessaggeError(
                 }
             }
 
-            // Mensaje principal centrado estéticamente
             Text(
                 text = message,
+                fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center
             )
 
             // Texto de solución
             Text(
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 text = solution,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center
             )
 
-            // Botón de reintentar ocupando todo el ancho limpio
             Button(
-                onClick = onRetry,
+                onClick = onActionClick,
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -134,7 +113,7 @@ fun MessaggeError(
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "Reintentar",
+                    text = buttonText,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -150,8 +129,9 @@ fun MessaggeErrorPreview() {
         MessaggeError(
             message = "Sin conexión a internet",
             solution = "Comprobá que el Wi-Fi o los datos móviles estén activados",
-            onRetry = {},
-            onDismiss = {}
+            buttonText = "Reintentar",
+            onActionClick = { },
+            onDismiss = { }
         )
     }
 }
@@ -163,8 +143,9 @@ fun MessaggeErrorPreviewDark() {
         MessaggeError(
             message = "Sin conexión a internet",
             solution = "Comprobá que el Wi-Fi o los datos móviles estén activados",
-            onRetry = {},
-            onDismiss = {}
+            buttonText = "Reintentar",
+            onActionClick = { },
+            onDismiss = { }
         )
     }
 }

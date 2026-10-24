@@ -69,29 +69,30 @@ fun HomeScreen(
             if (state is HomeUiState.Loading || state is HomeUiState.Error) {
                 LoadingCardsWireframe()
             }
-            // 2. Evaluamos los diferentes estados de la UI limpiamente con un 'when'
-            when (val state = state) {
+
+            when (val currentState = state) {
                 is HomeUiState.Loading -> { }
 
                 is HomeUiState.Error -> {
-                    // Muestra el por qué ocurrió y cómo solucionarlo que vinieron del Repo/ViewModel
                     MessaggeError(
-                        message = stringResource(id = state.message),
-                        solution = stringResource(id = state.solution),
-                        onRetry = {viewModel.retry() },
+                        message = stringResource(id = currentState.message),
+                        solution = stringResource(id = currentState.solution),
+                        buttonText = stringResource(id = currentState.buttonText),
+                        onActionClick = {
+                            viewModel.retry()
+                        },
                         onDismiss = { }
                     )
                 }
 
                 is HomeUiState.Success -> {
-                    // 3. Cuando es exitoso, desplegamos tu HorizontalPager con las listas correspondientes
                     HorizontalPager(
                         state = pagerState,
                         modifier = Modifier.fillMaxSize()
                     ) { page ->
                         val moviesToDisplay = when (page) {
-                            0 -> state.popularMovies
-                            1 -> state.trendingMovies
+                            0 -> currentState.popularMovies
+                            1 -> currentState.trendingMovies
                             else -> emptyList()
                         }
 

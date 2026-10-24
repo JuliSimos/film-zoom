@@ -9,8 +9,9 @@ sealed interface HomeUiState {
         val trendingMovies: List<Movie>
     ) : HomeUiState
     data class Error(
-        val message: Int,
-        val solution: Int,
-        val showRetry: Boolean = true
+    val message: Int,
+    val solution: Int,
+    val buttonText: Int,
+    val isRetry: Boolean
     ) : HomeUiState
 }
