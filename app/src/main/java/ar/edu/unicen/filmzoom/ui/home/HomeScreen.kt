@@ -64,10 +64,11 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
         ) {
             if (state is HomeUiState.Loading || state is HomeUiState.Error) {
-                LoadingCardsWireframe()
+                LoadingCardsWireframe(
+                    modifier = Modifier.padding(innerPadding)
+                )
             }
 
             when (val currentState = state) {
@@ -97,6 +98,7 @@ fun HomeScreen(
                         }
 
                         MovieGridScreen(
+                            innerPadding = innerPadding,
                             movies = moviesToDisplay,
                             onMovieClick = onMovieClick
                         )

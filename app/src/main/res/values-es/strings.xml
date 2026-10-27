@@ -14,14 +14,13 @@
     <string name="detail_section_synopsis">Sinopsis</string>
     <string name="detail_section_genres">Géneros</string>
     <string name="detail_section_cast">Reparto principal</string>
-    <string name="detail_see_all">Ver todo ></string>
-    <string name="detail_full_sheet">Ficha completa</string>
+    <string name="detail_director">Director:</string>
+    <string name="detail_production">Producción:</string>
 
 
 
 
     <!-- Formatos de Texto en Detalle -->
-    <string name="detail_director_format">Director: %1$s</string>
     <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>

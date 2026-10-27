@@ -2,7 +2,6 @@ package ar.edu.unicen.filmzoom.ui.detail.detailcomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.CastMember
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import coil.compose.AsyncImage
 
@@ -40,44 +38,20 @@ fun MovieCastSection(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.detail_section_cast),
-                    style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Text(
-                        text = cast.size.toString(),
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                        style = TextStyle(fontSize = 10.sp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
+        Text(
+            text = stringResource(id = R.string.detail_section_cast),
+            style = MaterialTheme.typography.labelLarge.copy(
+                letterSpacing = 0.sp
+            ),
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
 
-            Text(
-                text = "Ver todo >", //ACTUALIZAR STRING
-                style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
 
         LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium)
         ) {
             items(cast.take(10)) { actor ->
                 CastMemberItem(actor = actor)
@@ -94,7 +68,7 @@ fun CastMemberItem(
     Column(
         modifier = Modifier.width(72.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
     ) {
         Surface(
             modifier = Modifier
@@ -112,14 +86,17 @@ fun CastMemberItem(
 
         Text(
             text = actor.name,
-            style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold),
+            style = MaterialTheme.typography.labelMedium.copy(
+                letterSpacing = 0.sp),
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
         Text(
             text = actor.character,
-            style = TextStyle(fontSize = 10.sp),
+            style = MaterialTheme.typography.labelSmall.copy(
+                letterSpacing = 0.sp),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis

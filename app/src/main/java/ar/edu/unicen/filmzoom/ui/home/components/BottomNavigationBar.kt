@@ -1,6 +1,5 @@
 package ar.edu.unicen.filmzoom.ui.home.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,8 +27,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
@@ -53,7 +52,7 @@ fun BottomNavigationBar(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
+                    .padding(vertical = AppSpacing.small),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -111,7 +110,7 @@ private fun BottomNavItem(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = ripple(bounded = false, radius = 32.dp),
             )
-            .padding(vertical = 4.dp),
+            .padding(vertical = AppSpacing.extraSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -121,10 +120,11 @@ private fun BottomNavItem(
             tint = contentColor,
             modifier = Modifier.size(26.dp)
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+
         Text(
             text = label,
-            fontSize = 13.sp,
+            style = MaterialTheme.typography.titleSmall,
             fontWeight = fontWeight,
             color = contentColor
         )

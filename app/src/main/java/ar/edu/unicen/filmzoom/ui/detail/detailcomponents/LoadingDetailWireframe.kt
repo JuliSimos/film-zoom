@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
@@ -55,8 +55,8 @@ fun LoadingDetailWireframe(
     LazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        contentPadding = PaddingValues(bottom = 32.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        contentPadding = PaddingValues(bottom = AppSpacing.extraLarge),
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.large),
         userScrollEnabled = false
     ) {
         // 1. Esqueleto de la Cabecera (Banner + Póster superpuesto + Títulos)
@@ -64,15 +64,15 @@ fun LoadingDetailWireframe(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
+                    .padding(bottom = AppSpacing.small)
             ) {
                 // Fila con póster flotante y textos falsos
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = AppSpacing.medium)
                         .padding(top = 130.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium),
                     verticalAlignment = Alignment.Bottom
                 ) {
                     // Póster flotante falso
@@ -80,7 +80,7 @@ fun LoadingDetailWireframe(
                         modifier = Modifier
                             .width(110.dp)
                             .height(160.dp)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(MaterialTheme.shapes.medium)
                         .background(accentColor)
                     )
 
@@ -88,28 +88,28 @@ fun LoadingDetailWireframe(
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(bottom = 4.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                            .padding(bottom = AppSpacing.extraSmall),
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
                     ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
                                 .height(12.dp)
-                                .clip(RoundedCornerShape(4.dp))
+                                .clip(MaterialTheme.shapes.extraSmall)
                                 .background(accentColor)
                         )
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
                                 .height(24.dp)
-                                .clip(RoundedCornerShape(4.dp))
+                                .clip(MaterialTheme.shapes.extraSmall)
                                 .background(baseColor)
                         )
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.4f)
                                 .height(12.dp)
-                                .clip(RoundedCornerShape(4.dp))
+                                .clip(MaterialTheme.shapes.extraSmall)
                                 .background(accentColor)
                         )
                     }
@@ -122,21 +122,21 @@ fun LoadingDetailWireframe(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    .padding(horizontal = AppSpacing.medium),
+                horizontalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp)
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(MaterialTheme.shapes.extraLarge)
                         .background(accentColor)
                 )
                 Box(
                     modifier = Modifier
                         .size(48.dp)
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(MaterialTheme.shapes.extraLarge)
                         .background(accentColor)
                 )
             }
@@ -147,15 +147,15 @@ fun LoadingDetailWireframe(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(horizontal = AppSpacing.medium),
+                horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)
             ) {
                 repeat(3) {
                     Box(
                         modifier = Modifier
                             .width(70.dp)
                             .height(32.dp)
-                            .clip(RoundedCornerShape(16.dp))
+                            .clip(MaterialTheme.shapes.large)
                             .background(baseColor)
                     )
                 }
@@ -167,35 +167,35 @@ fun LoadingDetailWireframe(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                shape = RoundedCornerShape(16.dp),
+                    .padding(horizontal = AppSpacing.medium),
+                shape = MaterialTheme.shapes.large,
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(AppSpacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
                 ) {
                     Box(
                         modifier = Modifier
                             .width(80.dp)
                             .height(14.dp)
-                            .clip(RoundedCornerShape(4.dp))
+                            .clip(MaterialTheme.shapes.extraSmall)
                             .background(baseColor)
                     )
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(12.dp)
-                            .clip(RoundedCornerShape(4.dp))
+                            .clip(MaterialTheme.shapes.extraSmall)
                             .background(baseColor)
                     )
                     Box(
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
                             .height(12.dp)
-                            .clip(RoundedCornerShape(4.dp))
+                            .clip(MaterialTheme.shapes.extraSmall)
                             .background(baseColor)
                     )
                 }
@@ -207,25 +207,25 @@ fun LoadingDetailWireframe(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(horizontal = AppSpacing.medium),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
             ) {
                 Box(
                     modifier = Modifier
                         .width(120.dp)
                         .height(14.dp)
-                        .clip(RoundedCornerShape(4.dp))
+                        .clip(MaterialTheme.shapes.extraSmall)
                         .background(baseColor)
                 )
 
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium),
                     userScrollEnabled = false
                 ) {
                     items(5) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                            verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
                         ) {
                             Box(
                                 modifier = Modifier
@@ -237,7 +237,7 @@ fun LoadingDetailWireframe(
                                 modifier = Modifier
                                     .width(50.dp)
                                     .height(10.dp)
-                                    .clip(RoundedCornerShape(4.dp))
+                                    .clip(MaterialTheme.shapes.extraSmall)
                                     .background(baseColor)
                             )
                         }

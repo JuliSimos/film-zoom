@@ -34,6 +34,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             //estado de carga activado
             _uiState.value = HomeUiState.Loading
+            //kotlinx.coroutines.delay(3500L)
             when(val result = movieRepository.getPopularMovies()){
                 is NetworkResult.Success -> {
                     _uiState.value = HomeUiState.Success(

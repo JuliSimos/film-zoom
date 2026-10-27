@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -23,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,11 +27,19 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.Movie
+import ar.edu.unicen.filmzoom.ui.components.RatingChip
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
-import ar.edu.unicen.filmzoom.ui.theme.RatingStarLight
+
+/**    Espaciados:
+ *     val extraSmall = 4.dp
+ *     val small = 8.dp
+ *     val medium = 16.dp
+ *     val large = 24.dp
+ *     val extraLarge = 32.dp
+ */
 
 @Composable
 fun MovieCard(
@@ -47,7 +51,7 @@ fun MovieCard(
             .fillMaxWidth()
             .semantics(mergeDescendants = true) {} // Fusiona el texto para TalkBack en un solo anuncio claro
             .clickable { onMovieClicked() },
-        shape = RoundedCornerShape(8.dp),
+        shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
@@ -58,7 +62,7 @@ fun MovieCard(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // PÓSTER DE LA PELÍCULA CON CONTENEDOR VIGENTE
+            // PÓSTER DE LA PELÍCULA CON CONTENEDOR
             Surface(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 modifier = Modifier
@@ -68,75 +72,48 @@ fun MovieCard(
                 AsyncImage(
                     model = movie.posterPath,
                     contentDescription = stringResource(R.string.cd_movie_poster, movie.title),
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .clip(RoundedCornerShape(5.dp)),
+                    modifier = Modifier,
+//                        .padding(4.dp)
+//                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
             }
 
-            Spacer(modifier = Modifier.width(14.dp))
+            Spacer(modifier = Modifier.width(AppSpacing.small))
 
             // COLUMNA DE INFORMACIÓN
             Column(
-                modifier = Modifier.weight(1f)
-                    .padding(8.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(AppSpacing.small),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
             ) {
+                // TÍTULO
+                Text(
+                    text = movie.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                )
+
+                // FILA INFERIOR: AÑO Y RATING
                 Row(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-
-                ) {
-                    Text(
-                        text = movie.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-
-                    // Chip Rating
-                    Surface(
-                        color = MaterialTheme.colorScheme.surfaceVariant,
-                        shape = RoundedCornerShape(4.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = null,
-                                tint = RatingStarLight,
-                                modifier = Modifier.size(16.dp)
-                            )
-
-                            Spacer(modifier = Modifier.width(4.dp))
-
-                            Text(
-                                text = movie.voteAverage.toString().take(3),
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    }
-                }
-
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)
                 ) {
                     // Año
-                    Text(
-                        text = movie.releaseDate.take(4),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant // Texto secundario
-                    )
+                    if (movie.releaseDate.length >= 4) {
+                        Text(
+                            text = movie.releaseDate.take(4),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    RatingChip(movie.voteAverage)
                 }
-
             }
 
             // FLECHA A LA DERECHA
@@ -146,7 +123,7 @@ fun MovieCard(
                 tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .size(24.dp)
-                    .padding(end = 4.dp)
+                    .padding(end = AppSpacing.small)
             )
         }
     }
@@ -180,7 +157,7 @@ fun MovieCardDarkPreview() {
                 MovieCard(
                     movie = Movie(
                         id = 1,
-                        title = "Inception",
+                        title = "The Lord of the Rings: The Fellowship of the Ring",
                         posterPath = "/edv5bs1qYwqvqyJ6G2T2oQ1HQC8.jpg",
                         releaseDate = "2010-07-15",
                         voteAverage = 8.8,

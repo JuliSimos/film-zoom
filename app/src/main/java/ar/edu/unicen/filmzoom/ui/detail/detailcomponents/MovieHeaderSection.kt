@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -21,13 +20,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.MovieDetails
+import ar.edu.unicen.filmzoom.ui.components.RatingChip
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import coil.compose.AsyncImage
 
@@ -42,7 +41,7 @@ fun MovieHeaderSection(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 8.dp),
+            .padding(bottom = AppSpacing.small),
     ) {
         // 1. Imagen de fondo superior (Backdrop) con degradado hacia abajo
 
@@ -55,8 +54,7 @@ fun MovieHeaderSection(
             AsyncImage(
                 model = detailMovie.backdropPath,
                 contentDescription = stringResource(R.string.cd_movie_backdrop, detailMovie.title),
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
             Box(
@@ -80,9 +78,9 @@ fun MovieHeaderSection(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(top = 130.dp), // Empuja la fila hacia abajo para que el póster pise el banner
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                .padding(horizontal = AppSpacing.medium)
+                .padding(top = 130.dp), // Empuja la fila hacia abajo para que el póster pise el banner -> me molesta dejarlo con valor aboluto
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium),
             verticalAlignment = Alignment.Bottom
         ) {
             // Póster flotante
@@ -90,7 +88,7 @@ fun MovieHeaderSection(
                 modifier = Modifier
                     .width(110.dp)
                     .height(160.dp),
-                shape = RoundedCornerShape(12.dp),
+                shape = MaterialTheme.shapes.small,
                 shadowElevation = 8.dp,
                 color = MaterialTheme.colorScheme.surface
             ) {
@@ -107,49 +105,22 @@ fun MovieHeaderSection(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                    .padding(bottom = AppSpacing.extraSmall),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                Text(
-                        text = detailMovie.production,
-                        style = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    // Badge de calificación (Estrella amarilla y puntaje) arriba a la derecha
-                    Surface(
-                        modifier = Modifier
-                            .padding(4.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color(0xFFF3D086) // Color amarillo suave de la captura
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "★", fontSize = 14.sp, color = Color.Black)
-                            Text(
-                                text = detailMovie.voteAverage.toString().take(3),
-                                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold),
-                                color = Color.Black
-                            )
-                        }
-                    }
-                }
+
+                RatingChip(detailMovie.voteAverage)
+
 
                 Text(
                     text = detailMovie.title,
-                    style = TextStyle(fontSize = 26.sp, fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = stringResource(R.string.detail_movie_metadata_format, detailMovie.releaseDate.take(4), detailMovie.runtime),
-                    style = TextStyle(fontSize = 13.sp),
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

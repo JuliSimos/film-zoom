@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unicen.filmzoom.domain.model.Movie
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 
 @Composable
 fun MovieGridScreen(
@@ -44,11 +45,11 @@ fun MovieGridScreen(
             .padding(innerPadding)
             .consumeWindowInsets(innerPadding),
 // Margen lateral de 16.dp para toda la lista, y un respiro arriba/abajo
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = AppSpacing.medium, vertical = AppSpacing.small),
         // Espacio horizontal entre las 2 columnas
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall),
         // Espacio vertical automático entre cada item del LazyColumn
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
     ) {
         items(
             items = movies,
@@ -65,7 +66,6 @@ fun MovieGridScreen(
 @Preview(showBackground = true)
 @Composable
 fun MovieGridScreenPreview() {
-    // Se puede envolver en el Theme del proyecto si existe, e.g., FilmZoomTheme { ... }
     val sampleMovies = listOf(
         Movie(
             id = 1,

@@ -14,12 +14,12 @@
     <string name="detail_section_synopsis">Synopsis</string>
     <string name="detail_section_genres">Genres</string>
     <string name="detail_section_cast">Main cast</string>
-    <string name="detail_see_all">See all ></string>
-    <string name="detail_full_sheet">Full details</string>
+    <string name="detail_director">Director:</string>
+    <string name="detail_production">Production:</string>
+
 
     <!-- Movie Detail Text Formats -->
-    <string name="detail_director_format">🎬 Director: %1$s</string>
-    <string name="detail_movie_metadata_format">%1$s · %2$d min</string>
+    <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>
     <string name="movie_rating_format">%1$.1f</string>

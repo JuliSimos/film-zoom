@@ -1,10 +1,12 @@
 package ar.edu.unicen.filmzoom.ui.detail
+
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -24,6 +26,7 @@ import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieDetailTopBar
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieGenresSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 
 @Composable
 fun MovieDetailScreen(
@@ -31,7 +34,7 @@ fun MovieDetailScreen(
     viewModel: MovieDetailViewModel,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
-    onWishlistClick: (Boolean) -> Unit = {}
+    onWishlistClick: () -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -48,7 +51,7 @@ fun MovieDetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding) //aca lo quito tambien?
         ) {
             // Mostramos los wireframes si está cargando o hay un error
             if (state is DetailUiState.Loading || state is DetailUiState.Error) {
@@ -79,8 +82,8 @@ fun MovieDetailScreen(
                     val details = currentState.details
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(bottom = 32.dp),
-                        verticalArrangement = Arrangement.spacedBy(20.dp)
+                        contentPadding = PaddingValues(bottom = AppSpacing.extraLarge),
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.medium)
                     ) {
                         // 1. Cabecera (Banner + Póster superpuesto + Título + Rating)
                         item {
@@ -93,7 +96,8 @@ fun MovieDetailScreen(
                         val hasWebsite = !details.homepage.isNullOrBlank()
                         item {
                             MovieActionButtons(
-                                modifier = Modifier.padding(horizontal = 16.dp),
+                                modifier = Modifier.padding(horizontal = AppSpacing.medium)
+                                .widthIn(max = 480.dp),
                                 hasWebsite = hasWebsite,
                                 onWebsiteClick = {
                                     val url = details.homepage
@@ -110,24 +114,25 @@ fun MovieDetailScreen(
                         // 3. Géneros (Chips horizontales)
                         item {
                             MovieGenresSection(
-                                modifier = Modifier.padding(horizontal = 16.dp),
-                                genres = details.genres ?: emptyList()
+                                modifier = Modifier.padding(horizontal = AppSpacing.medium),
+                                genres = details.genres
                             )
                         }
 
                         // 4. Sinopsis y Director
                         item {
                             MovieSynopsisCard(
-                                modifier = Modifier.padding(horizontal = 16.dp),
-                                overview = details.overview ?: "",
-                                director = details.director
+                                modifier = Modifier.padding(horizontal = AppSpacing.medium),
+                                overview = details.overview,
+                                director = details.director,
+                                production = details.production
                             )
                         }
 
                         // 5. Reparto principal
                         item {
                             MovieCastSection(
-                                modifier = Modifier.padding(horizontal = 16.dp),
+                                modifier = Modifier.padding(horizontal = AppSpacing.medium),
                                 cast = details.cast
                             )
                         }
