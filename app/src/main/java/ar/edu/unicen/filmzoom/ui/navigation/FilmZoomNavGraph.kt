@@ -47,8 +47,6 @@ fun FilmZoomNavGraph(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onShareClick = { /* Compartir */ },
-                onWishlistClick = { /* Deseados */ }
             )
         }
     }

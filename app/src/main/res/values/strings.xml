@@ -16,6 +16,10 @@
     <string name="detail_section_cast">Main cast</string>
     <string name="detail_director">Director:</string>
     <string name="detail_production">Production:</string>
+    <string name="share_release_label">Released: </string>
+    <string name="share_footer">Shared from FilmZoom</string>
+    <string name="share_chooser_title">Share movie via</string>
+
 
 
 

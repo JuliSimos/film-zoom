@@ -28,7 +28,6 @@ class MovieDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
-    // Observamos en tiempo real si esta película está en la wishlist
     val isWishlisted: StateFlow<Boolean> = movieRepository.isMovieInWishlist(movieId)
         .stateIn(
             scope = viewModelScope,

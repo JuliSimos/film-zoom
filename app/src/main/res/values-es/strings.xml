@@ -16,7 +16,9 @@
     <string name="detail_section_cast">Reparto principal</string>
     <string name="detail_director">Director:</string>
     <string name="detail_production">Producción:</string>
-
+    <string name="share_release_label">Estreno: </string>
+    <string name="share_footer">Compartido desde FilmZoom</string>
+    <string name="share_chooser_title">Compartir película vía</string>
 
 
 

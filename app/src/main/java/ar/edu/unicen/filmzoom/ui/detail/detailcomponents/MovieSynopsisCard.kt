@@ -68,6 +68,12 @@ fun MovieSynopsisCard(
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
+                    text = stringResource(
+                        R.string.detail_director),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
                     text = director,
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant

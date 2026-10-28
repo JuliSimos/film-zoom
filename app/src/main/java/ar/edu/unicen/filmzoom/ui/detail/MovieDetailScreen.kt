@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.components.MessaggeError
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.LoadingDetailWireframe
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieActionButtons
@@ -27,20 +28,21 @@ import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieGenresSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
+import java.util.Locale
 
 @Composable
 fun MovieDetailScreen(
     modifier: Modifier = Modifier,
     viewModel: MovieDetailViewModel,
     onBackClick: () -> Unit = {},
-    onShareClick: () -> Unit = {},
-    onWishlistClick: () -> Unit = {
-        viewModel.onWishlistClick()
-    }
 ) {
     val state by viewModel.uiState.collectAsState()
     val isWishlisted by viewModel.isWishlisted.collectAsState()
     val context = LocalContext.current
+
+    val releaseLabel = stringResource(R.string.share_release_label)
+    val footerText = stringResource(R.string.share_footer)
+    val chooserTitle = stringResource(R.string.share_chooser_title)
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -114,7 +116,37 @@ fun MovieDetailScreen(
                                         context.startActivity(intent)
                                     }
                                 },
-                                onShareClick = onShareClick
+
+
+                                onShareClick = {
+                                    val formattedVote = String.format(Locale.US, "%.1f", details.voteAverage)
+                                    val maxOverviewLenght = 140
+                                    val trimmedOverview = if (details.overview.length > maxOverviewLenght){
+                                        details.overview.take(maxOverviewLenght).trimEnd() + "..."
+                                    }else{
+                                        details.overview
+                                    }
+
+                                    val shareText = buildString{
+                                        append("${details.title} (${formattedVote})\n")
+                                        if (details.releaseDate.isNotBlank()){
+                                            val year = details.releaseDate.take(4)
+                                            append("$releaseLabel$year\n\n")
+                                        }
+                                        if (trimmedOverview.isNotBlank()){
+                                            append("\"$trimmedOverview\"\n\n")
+                                        }
+                                        append(footerText)
+                                    }
+
+                                    val sendIntent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        putExtra(Intent.EXTRA_TEXT, shareText)
+                                        type = "text/plain"
+                                    }
+                                    val shareIntent = Intent.createChooser(sendIntent, chooserTitle)
+                                    context.startActivity(shareIntent)
+                                }
                             )
                         }
 
