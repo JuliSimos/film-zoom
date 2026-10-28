@@ -33,13 +33,6 @@ import ar.edu.unicen.filmzoom.ui.components.RatingChip
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
-/**    Espaciados:
- *     val extraSmall = 4.dp
- *     val small = 8.dp
- *     val medium = 16.dp
- *     val large = 24.dp
- *     val extraLarge = 32.dp
- */
 
 @Composable
 fun MovieCard(
@@ -141,7 +134,6 @@ fun MovieCardLightPreview() {
                     posterPath = "/edv5bs1qYwqvqyJ6G2T2oQ1HQC8.jpg",
                     releaseDate = "2010-07-15",
                     voteAverage = 8.8,
-                    runtime = 148
                 ),
                 onMovieClicked = {}
             )
@@ -161,7 +153,6 @@ fun MovieCardDarkPreview() {
                         posterPath = "/edv5bs1qYwqvqyJ6G2T2oQ1HQC8.jpg",
                         releaseDate = "2010-07-15",
                         voteAverage = 8.8,
-                        runtime = 148
                 ),
                 onMovieClicked = {}
             )

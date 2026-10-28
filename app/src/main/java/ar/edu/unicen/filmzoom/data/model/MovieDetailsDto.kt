@@ -76,12 +76,10 @@ data class CastMemberDto(
     val profilePath: String?
 )
 data class CrewMemberDto(
-
     @SerializedName("name")
     val name: String,
-
     @SerializedName("job")
-    val job: String // Aquí vendrá "Director"
+    val job: String
 )
 
 // --- Función de extensión para mapear el detalle a Dominio ---
@@ -101,7 +99,6 @@ fun MovieDetailResponseDto.toDomain(
         id = id,
         title = title,
         overview = overview.orEmpty(),
-// Concatenamos de forma segura solo si no es nulo/vacío
         posterPath = posterPath?.let { "$posterBaseUrl$it" },
         backdropPath = backdropPath?.let { "$posterBaseUrl$it" },
         releaseDate = releaseDate.orEmpty(),

@@ -1,12 +1,17 @@
 package ar.edu.unicen.filmzoom.dll
 
+import android.content.Context
+import androidx.room.Room
 import ar.edu.unicen.filmzoom.BuildConfig
+import ar.edu.unicen.filmzoom.data.local.FilmZoomDatabase
+import ar.edu.unicen.filmzoom.data.local.dao.MovieDao
 import ar.edu.unicen.filmzoom.data.remote.TmdbApiService
 import ar.edu.unicen.filmzoom.data.repository.MovieRepositoryImpl
 import ar.edu.unicen.filmzoom.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
@@ -55,11 +60,32 @@ object AppModule{
     fun provideTmdbApiService(retrofit: Retrofit): TmdbApiService {
         return retrofit.create(TmdbApiService::class.java)
     }
+
+    // 4. Proveemos el Repositorio de la API
     @Provides
     @Singleton
     fun provideMovieRepository(
         movieRepositoryImpl: MovieRepositoryImpl
     ): MovieRepository {
         return movieRepositoryImpl
+    }
+    // 5. Proveedores de Room  (Base de datos local)
+
+    @Provides
+    @Singleton
+    fun provideFilmZoomDatabase(
+        @ApplicationContext context: Context
+    ): FilmZoomDatabase {
+        return Room.databaseBuilder(
+            context,
+            FilmZoomDatabase::class.java,
+            FilmZoomDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieDao(database: FilmZoomDatabase): MovieDao {
+        return database.movieDao()
     }
 }

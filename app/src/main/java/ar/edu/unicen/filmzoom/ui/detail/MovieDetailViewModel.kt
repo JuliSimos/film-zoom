@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.data.repository.NetworkResult
 import ar.edu.unicen.filmzoom.data.repository.AppError
+import ar.edu.unicen.filmzoom.domain.model.toMovie
 import ar.edu.unicen.filmzoom.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +27,14 @@ class MovieDetailViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
+
+    // Observamos en tiempo real si esta película está en la wishlist
+    val isWishlisted: StateFlow<Boolean> = movieRepository.isMovieInWishlist(movieId)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = false
+        )
 
     init {
         if (movieId != 0)
@@ -83,6 +94,22 @@ class MovieDetailViewModel @Inject constructor(
     fun retry() {
         if (movieId != 0) {
             loadDetailData(movieId)
+        }
+    }
+
+    fun onWishlistClick() {
+        val currentState = _uiState.value
+        if (currentState is DetailUiState.Success) {
+            val movie = currentState.details.toMovie()
+            val currentlyWishlisted = isWishlisted.value
+
+            viewModelScope.launch {
+                if (currentlyWishlisted) {
+                    movieRepository.removeFromWishlist(movie.id)
+                } else {
+                    movieRepository.addToWishlist(movie)
+                }
+            }
         }
     }
 }

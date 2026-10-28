@@ -14,17 +14,19 @@ interface MovieRepository {
     suspend fun getPopularMovies(): NetworkResult<List<Movie>>
 
     // Para la sección de Tendencias
-    suspend fun getTrendingMovies(): List<Movie>
+    suspend fun getTrendingMovies(): NetworkResult<List<Movie>>
 
     // Para la pantalla de Detalle
     suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails>
 
 
     // --- 2. Origen Local (Deseados / Favoritos) ---
-    fun getWishlistMovies(): List<Movie>
+    fun getWishlistMovies(): Flow<List<Movie>>
 
     // Pendiente: Métodos para gestionar los deseos localmente
     suspend fun addToWishlist(movie: Movie)
 
     suspend fun removeFromWishlist(movieId: Int)
+
+    fun isMovieInWishlist(movieId: Int): Flow<Boolean>
 }

@@ -34,9 +34,12 @@ fun MovieDetailScreen(
     viewModel: MovieDetailViewModel,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
-    onWishlistClick: () -> Unit = {}
+    onWishlistClick: () -> Unit = {
+        viewModel.onWishlistClick()
+    }
 ) {
     val state by viewModel.uiState.collectAsState()
+    val isWishlisted by viewModel.isWishlisted.collectAsState()
     val context = LocalContext.current
 
     Scaffold(
@@ -51,7 +54,7 @@ fun MovieDetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding) //aca lo quito tambien?
+                .padding(innerPadding)
         ) {
             // Mostramos los wireframes si está cargando o hay un error
             if (state is DetailUiState.Loading || state is DetailUiState.Error) {
@@ -96,9 +99,14 @@ fun MovieDetailScreen(
                         val hasWebsite = !details.homepage.isNullOrBlank()
                         item {
                             MovieActionButtons(
-                                modifier = Modifier.padding(horizontal = AppSpacing.medium)
-                                .widthIn(max = 480.dp),
+                                modifier = Modifier
+                                    .padding(horizontal = AppSpacing.medium)
+                                    .widthIn(max = 480.dp),
                                 hasWebsite = hasWebsite,
+                                isWishlisted = isWishlisted,
+                                onWishlistClick = {
+                                    viewModel.onWishlistClick()
+                                },
                                 onWebsiteClick = {
                                     val url = details.homepage
                                     if (hasWebsite && !url.isNullOrBlank()) {
@@ -106,8 +114,7 @@ fun MovieDetailScreen(
                                         context.startActivity(intent)
                                     }
                                 },
-                                onShareClick = onShareClick,
-                                onWishlistClick = onWishlistClick
+                                onShareClick = onShareClick
                             )
                         }
 

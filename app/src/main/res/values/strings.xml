@@ -18,6 +18,7 @@
     <string name="detail_production">Production:</string>
 
 
+
     <!-- Movie Detail Text Formats -->
     <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
@@ -42,6 +43,8 @@
     <string name="cd_btn_wishlist">Button to add movie to wishlist</string>
     <string name="cd_btn_website">Official website</string>
     <string name="cd_btn_share">Share</string>
+    <string name="cd_remove_from_wishlist">remove from wishlist</string>
+
 
     <!-- Network / No Connection Errors -->
     <string name="error_no_internet_title">No internet connection</string>

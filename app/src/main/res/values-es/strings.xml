@@ -45,6 +45,7 @@
     <string name="cd_btn_wishlist">Botón para agregar película a la lista de deseados</string>
     <string name="cd_btn_website">Página oficial</string>
     <string name="cd_btn_share">Compartir</string>
+    <string name="cd_remove_from_wishlist">Eliminar de la lista de deseados</string>
 
     <!-- Errores de Red / Sin Conexión -->
     <string name="error_no_internet_title">Sin conexión a internet</string>

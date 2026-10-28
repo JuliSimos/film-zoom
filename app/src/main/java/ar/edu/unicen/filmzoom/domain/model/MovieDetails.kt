@@ -12,6 +12,16 @@ data class MovieDetails(
     val homepage: String?,          // Sitio web oficial
     val genres: List<String>, // Géneros
     val production: String,
-    val director: String?,     // Director (obtenido del reparto/créditos
+    val director: String?,     // Director (obtenido del reparto/créditos)
     val cast: List<CastMember>
 )
+
+fun MovieDetails.toMovie(): Movie {
+    return Movie(
+        id = id,
+        title = title,
+        posterPath = posterPath ?: "",
+        releaseDate = releaseDate,
+        voteAverage = voteAverage
+    )
+}

@@ -23,8 +23,13 @@ fun MovieGridScreen(
     modifier: Modifier = Modifier,
     innerPadding: PaddingValues = PaddingValues(0.dp),
     movies : List<Movie>,
-    onMovieClick: (Int) -> Unit = {} //Recibe el id de la pelicula
-
+    onMovieClick: (Int) -> Unit = {}, //Recibe el id de la pelicula
+    movieItemContent: @Composable (Movie) -> Unit = { movie ->
+        MovieCard(
+            movie = movie,
+            onMovieClicked = { onMovieClick(movie.id) }
+        )
+}
 ) {
     // Detectamos la orientación actual del teléfono
     val configuration = LocalConfiguration.current
@@ -44,21 +49,15 @@ fun MovieGridScreen(
             .fillMaxSize()
             .padding(innerPadding)
             .consumeWindowInsets(innerPadding),
-// Margen lateral de 16.dp para toda la lista, y un respiro arriba/abajo
         contentPadding = PaddingValues(horizontal = AppSpacing.medium, vertical = AppSpacing.small),
-        // Espacio horizontal entre las 2 columnas
         horizontalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall),
-        // Espacio vertical automático entre cada item del LazyColumn
         verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
     ) {
         items(
             items = movies,
             key = { movie -> movie.id }
         ) { movie ->
-            MovieCard(
-                movie,
-                onMovieClicked = { onMovieClick(movie.id) }
-            )
+            movieItemContent(movie)
         }
     }
 }
@@ -73,7 +72,6 @@ fun MovieGridScreenPreview() {
             posterPath = "",
             releaseDate = "2010-07-16",
             voteAverage = 8.8,
-            runtime = 234
         ),
         Movie(
             id = 2,
@@ -81,7 +79,6 @@ fun MovieGridScreenPreview() {
             posterPath = "",
             releaseDate = "2008-07-18",
             voteAverage = 9.0,
-            runtime = 123
         )
     )
 

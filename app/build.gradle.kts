@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
+
     // Paging 3
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
@@ -99,6 +100,11 @@ dependencies {
     // Coil para Jetpack Compose
     implementation(libs.coil.compose)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    //Los compiladores o procesadores de anotaciones nunca van como implementation, sino como ksp
+    ksp(libs.androidx.room.compiler)
 
     // Testing
     testImplementation(libs.junit)
@@ -112,4 +118,10 @@ dependencies {
     // Debugging / Previews
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+}
+/*
+Le dice a Gradle: "Si alguna librería de terceros intenta meter com.intellij:annotations (la versión 12.0 que choca), descartala automáticamente y quédate solo con la moderna de JetBrains".
+ */
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
 }

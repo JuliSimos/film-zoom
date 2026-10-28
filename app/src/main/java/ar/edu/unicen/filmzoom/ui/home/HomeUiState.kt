@@ -6,7 +6,8 @@ sealed interface HomeUiState {
     object Loading : HomeUiState
     data class Success(
         val popularMovies: List<Movie>,
-        val trendingMovies: List<Movie>
+        val trendingMovies: List<Movie>,
+
     ) : HomeUiState
     data class Error(
     val message: Int,

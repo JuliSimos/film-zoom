@@ -21,6 +21,7 @@ import ar.edu.unicen.filmzoom.ui.home.components.BottomNavigationBar
 import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.home.components.TopNavegationBar
 import ar.edu.unicen.filmzoom.ui.home.components.MovieGridScreen
+import ar.edu.unicen.filmzoom.ui.home.components.WishlistItemCard
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import kotlinx.coroutines.launch
 
@@ -33,14 +34,17 @@ fun HomeScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    // 1. Creamos el estado del Pager indicando cuántas pestañas tenemos (en este caso 2: populares y tendencias)
-    val pagerState = rememberPagerState(pageCount = { 2 })
+    // Observamos la lista de deseos en tiempo real desde Room
+    val wishlistMovies by viewModel.wishlistMovies.collectAsState()
+
+    // Creamos el estado del Pager indicando cuántas pestañas tenemos (en este caso 2: populares y tendencias)
+    val pagerState = rememberPagerState(pageCount = { 3 })
 
     // Opcional: Sincronizamos el estado del Pager con una variable si la necesitas,
     // o puedes usar directamente pagerState.currentPage en tu BottomNavigationBar
     val selectedTab = pagerState.currentPage
 
-    // Usamos una corrutina para animar el cambio de página cuando tocan la barra inferior
+    // corrutina para animar el cambio de página cuando tocan la barra inferior
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
@@ -91,17 +95,38 @@ fun HomeScreen(
                         state = pagerState,
                         modifier = Modifier.fillMaxSize()
                     ) { page ->
-                        val moviesToDisplay = when (page) {
-                            0 -> currentState.popularMovies
-                            1 -> currentState.trendingMovies
-                            else -> emptyList()
+                        when (page) {
+                            0 -> {
+                                MovieGridScreen(
+                                    innerPadding = innerPadding,
+                                    movies = currentState.popularMovies,
+                                    onMovieClick = onMovieClick
+                                )
+                            }
+                            1 -> {
+                                MovieGridScreen(
+                                    innerPadding = innerPadding,
+                                    movies = currentState.trendingMovies,
+                                    onMovieClick = onMovieClick
+                                )
+                            }
+                            2 -> {
+                                MovieGridScreen(
+                                    innerPadding = innerPadding,
+                                    movies = wishlistMovies,
+                                    onMovieClick = onMovieClick,
+                                    movieItemContent = { movie ->
+                                        WishlistItemCard(
+                                            movie = movie,
+                                            onMovieClick = { onMovieClick(movie.id) },
+                                            onDeleteClick = {
+                                                viewModel.removeFromWishlist(movie.id)
+                                            }
+                                        )
+                                    }
+                                )
+                            }
                         }
-
-                        MovieGridScreen(
-                            innerPadding = innerPadding,
-                            movies = moviesToDisplay,
-                            onMovieClick = onMovieClick
-                        )
                     }
                 }
             }

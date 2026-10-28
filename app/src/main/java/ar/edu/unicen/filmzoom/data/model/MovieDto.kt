@@ -9,19 +9,16 @@ data class MovieResponseDto(
     val id: Int,
 
     @SerializedName("poster_path")
-    val posterPath: String?, // rutaPortada
+    val posterPath: String, // rutaPortada
 
     @SerializedName("title")
     val title: String,       // titulo
 
     @SerializedName("release_date")
-    val releaseDate: String?, // fecha
+    val releaseDate: String, // fecha
 
     @SerializedName("vote_average")
     val voteAverage: Double,  // ranking
-
-    @SerializedName("runtime")
-    val runtime: Int?
 )
 
 data class MoviesPageResponseDto(
@@ -29,15 +26,13 @@ data class MoviesPageResponseDto(
     val results: List<MovieResponseDto>
 )
 
-// Función de extensión para transformar el DTO de red al modelo de Dominio
 fun MovieResponseDto.toDomain(): Movie {
     return Movie(
         id = this.id,
         title = this.title,
         posterPath = "https://image.tmdb.org/t/p/w500${this.posterPath}", // Manejamos el nulo por si TMDB no manda imagen
-        releaseDate = this.releaseDate ?: "",
+        releaseDate = this.releaseDate,
         voteAverage = this.voteAverage,
-        runtime = this.runtime ?: 0
     )
 }
 

@@ -4,6 +4,7 @@ import ar.edu.unicen.filmzoom.data.repository.NetworkResult
 import ar.edu.unicen.filmzoom.domain.model.Movie
 import ar.edu.unicen.filmzoom.domain.model.MovieDetails
 import ar.edu.unicen.filmzoom.domain.repository.MovieRepository
+import kotlinx.coroutines.flow.Flow
 
 class FakeMovieRepository : MovieRepository {
 
@@ -14,15 +15,15 @@ class FakeMovieRepository : MovieRepository {
         return resultToReturn
     }
 
-    override suspend fun getTrendingMovies(): List<Movie> {
+    override suspend fun getTrendingMovies(): NetworkResult<List<Movie>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMovieDetail(movieId: Int): MovieDetails {
+    override suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails> {
         TODO("Not yet implemented")
     }
 
-    override fun getWishlistMovies(): List<Movie> {
+    override fun getWishlistMovies(): Flow<List<Movie>> {
         TODO("Not yet implemented")
     }
 
