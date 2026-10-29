@@ -1,5 +1,8 @@
 package ar.edu.unicen.filmzoom.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import ar.edu.unicen.filmzoom.data.local.dao.MovieDao
 import ar.edu.unicen.filmzoom.data.local.entity.toDomain
 import ar.edu.unicen.filmzoom.data.local.entity.toEntity
@@ -28,7 +31,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getPopularMovies(): NetworkResult<List<Movie>> = withContext(Dispatchers.IO){
         try {
-            val responseDto = api.getPopularMovies(currentLanguage)
+            val responseDto = api.getPopularMovies(currentLanguage,1)
 
             val movies = responseDto.results.map { it.toDomain() }
 
@@ -53,9 +56,25 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getPopularMoviesStream(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20, // TMDB devuelve típicamente 20 elementos por página
+                enablePlaceholders = false,
+                prefetchDistance = 2
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource { page ->
+                    val responseDto = api.getPopularMovies(language = currentLanguage, page = page)
+                    responseDto.results.map { it.toDomain() }
+                }
+            }
+        ).flow
+    }
+
     override suspend fun getTrendingMovies(): NetworkResult<List<Movie>> = withContext(Dispatchers.IO) {
         try {
-            val response = api.getTrendingMovies(timeWindow = "week", language = currentLanguage)
+            val response = api.getTrendingMovies(timeWindow = "week", language = currentLanguage, 1)
             val movies = response.results.map { it.toDomain() }
             NetworkResult.Success(movies)
 
@@ -73,6 +92,22 @@ class MovieRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             NetworkResult.Error(exception = e, errorType = AppError.UNKNOWN)
         }
+    }
+
+    override fun getTrendingMoviesStream(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 2
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource { page ->
+                    val responseDto = api.getTrendingMovies(timeWindow = "week", language = currentLanguage, page = page)
+                    responseDto.results.map { it.toDomain() }
+                }
+            }
+        ).flow
     }
 
     override suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails> = withContext(Dispatchers.IO) {

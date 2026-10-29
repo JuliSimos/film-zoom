@@ -1,6 +1,7 @@
 package ar.edu.unicen.filmzoom.ui.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -15,12 +16,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import ar.edu.unicen.filmzoom.ui.components.MessaggeError
 import ar.edu.unicen.filmzoom.ui.home.components.BottomNavigationBar
 import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.home.components.TopNavegationBar
 import ar.edu.unicen.filmzoom.ui.home.components.MovieGridScreen
+import ar.edu.unicen.filmzoom.ui.home.components.MovieGridScreenPaging
 import ar.edu.unicen.filmzoom.ui.home.components.WishlistItemCard
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import kotlinx.coroutines.launch
@@ -32,12 +36,15 @@ fun HomeScreen(
     onSearchClick: () -> Unit = {},
     onMovieClick: (Int) -> Unit = {},
 ) {
-    val state by viewModel.uiState.collectAsState()
+
+// Recolectamos los flujos paginados con Paging 3
+    val popularMoviesItems = viewModel.popularMovies.collectAsLazyPagingItems()
+    val trendingMoviesItems = viewModel.trendingMovies.collectAsLazyPagingItems()
 
     // Observamos la lista de deseos en tiempo real desde Room
     val wishlistMovies by viewModel.wishlistMovies.collectAsState()
 
-    // Creamos el estado del Pager indicando cuántas pestañas tenemos (en este caso 2: populares y tendencias)
+    // Creamos el estado del Pager indicando cuántas pestañas tenemos
     val pagerState = rememberPagerState(pageCount = { 3 })
 
     // Opcional: Sincronizamos el estado del Pager con una variable si la necesitas,
@@ -68,72 +75,52 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            if (state is HomeUiState.Loading || state is HomeUiState.Error) {
-                LoadingCardsWireframe(
-                    modifier = Modifier.padding(innerPadding)
-                )
-            }
-
-            when (val currentState = state) {
-                is HomeUiState.Loading -> { }
-
-                is HomeUiState.Error -> {
-                    MessaggeError(
-                        message = stringResource(id = currentState.message),
-                        solution = stringResource(id = currentState.solution),
-                        buttonText = stringResource(id = currentState.buttonText),
-                        onActionClick = {
-                            viewModel.retry()
-                        },
-                        onDismiss = { }
-                    )
-                }
-
-                is HomeUiState.Success -> {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier.fillMaxSize()
-                    ) { page ->
-                        when (page) {
-                            0 -> {
-                                MovieGridScreen(
-                                    innerPadding = innerPadding,
-                                    movies = currentState.popularMovies,
-                                    onMovieClick = onMovieClick
-                                )
-                            }
-                            1 -> {
-                                MovieGridScreen(
-                                    innerPadding = innerPadding,
-                                    movies = currentState.trendingMovies,
-                                    onMovieClick = onMovieClick
-                                )
-                            }
-                            2 -> {
-                                MovieGridScreen(
-                                    innerPadding = innerPadding,
-                                    movies = wishlistMovies,
-                                    onMovieClick = onMovieClick,
-                                    movieItemContent = { movie ->
-                                        WishlistItemCard(
-                                            movie = movie,
-                                            onMovieClick = { onMovieClick(movie.id) },
-                                            onDeleteClick = {
-                                                viewModel.removeFromWishlist(movie.id)
-                                            }
-                                        )
+            // HorizontalPager maneja tus 3 pestañas intactas
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { page ->
+                when (page) {
+                    0 -> {
+                        // Pestaña 0: Populares (Paginado)
+                        MovieGridScreenPaging(
+                            innerPadding = PaddingValues(0.dp),
+                            lazyPagingItems = popularMoviesItems,
+                            onMovieClick = onMovieClick
+                        )
+                    }
+                    1 -> {
+                        // Pestaña 1: Tendencias (Paginado)
+                        MovieGridScreenPaging(
+                            innerPadding = PaddingValues(0.dp),
+                            lazyPagingItems = trendingMoviesItems,
+                            onMovieClick = onMovieClick
+                        )
+                    }
+                    2 -> {
+                        // Pestaña 2: Deseados (Room)
+                        MovieGridScreen(
+                            innerPadding = PaddingValues(0.dp),
+                            movies = wishlistMovies,
+                            onMovieClick = onMovieClick,
+                            movieItemContent = { movie ->
+                                WishlistItemCard(
+                                    movie = movie,
+                                    onMovieClick = { onMovieClick(movie.id) },
+                                    onDeleteClick = {
+                                        viewModel.removeFromWishlist(movie.id)
                                     }
                                 )
                             }
-                        }
+                        )
                     }
                 }
             }
         }
     }
 }
-
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
 fun HomeScreenLightPreview() {

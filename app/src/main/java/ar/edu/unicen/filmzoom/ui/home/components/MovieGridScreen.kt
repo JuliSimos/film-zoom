@@ -51,7 +51,7 @@ fun MovieGridScreen(
             .consumeWindowInsets(innerPadding),
         contentPadding = PaddingValues(horizontal = AppSpacing.medium, vertical = AppSpacing.small),
         horizontalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall),
-        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
+        verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
     ) {
         items(
             items = movies,

@@ -10,13 +10,15 @@ import retrofit2.http.Query
 interface TmdbApiService {
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("language") language: String
+        @Query("language") language: String,
+        @Query("page") page: Int
     ): MoviesPageResponseDto
 
     @GET("trending/movie/{time_window}")
     suspend fun getTrendingMovies(
         @Path("time_window") timeWindow: String = "week",
-        @Query("language") language: String
+        @Query("language") language: String,
+        @Query("page") page: Int
     ): MoviesPageResponseDto
 
     @GET("movie/{movie_id}")
