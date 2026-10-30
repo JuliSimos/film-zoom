@@ -6,9 +6,7 @@ val Primary = Color(0xFF1683FF)
 val PrimaryContainerLight = Color(0xFFDCE8FF)
 val PrimaryContainerDark = Color(0xFF0E3663)
 
-val AccentYellow = Color(0xFFFB300)
 val RatingStarLight = Color(0xFFFFB300)
-val RatingStarDark = Color(0xFFFFCA28)
 
 // --- Superficies & Elevación: Modo Claro (Cinema Light) ---
 val MainBackgroundLight = Color(0xFFF8F9FF)
@@ -30,6 +28,11 @@ val BorderDark = Color(0xFF1E3A5F)
 val TextPrimaryDark = Color(0xFFF1F5F9)
 val TextSecondaryDark = Color(0xFF94A3B8)
 
+// --- On Primary & Containers ---
+val OnPrimary = Color.White
+val OnPrimaryContainerLight = Color(0xFF002D62)
+val OnPrimaryContainerDark = Color(0xFF9BC7FF)
+
 // --- Semánticos ---
 val ColorError = Color(0xFFDC2626)
-val ColorSuccess = Color(0xFF059669)
+

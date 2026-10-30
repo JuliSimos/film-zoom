@@ -30,6 +30,7 @@ fun RatingChip(
 
     // Chip Rating
     Surface(
+        modifier = modifier,
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = MaterialTheme.shapes.small
     ) {

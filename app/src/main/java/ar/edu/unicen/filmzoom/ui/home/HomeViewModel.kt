@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ): ViewModel() {
 
-    // 1. Streams paginados de red (vienen del Pager que armamos en el repositorio)
+    // Streams paginados de red (Paging 3)
     val popularMovies: Flow<PagingData<Movie>> = movieRepository
         .getPopularMoviesStream()
         .cachedIn(viewModelScope)
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
         .getTrendingMoviesStream()
         .cachedIn(viewModelScope)
 
-    // Wishlist de Room
+    // Wishlist de Room reactiva
     val wishlistMovies: StateFlow<List<Movie>> = movieRepository.getWishlistMovies()
         .stateIn(
             scope = viewModelScope,
@@ -36,18 +36,10 @@ class HomeViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-
-    fun retry() {
-    }
-
-    fun dismissError() {
-        TODO("Not yet implemented")
-    }
-
+    // Eliminar de deseados
     fun removeFromWishlist(movieId: Int) {
         viewModelScope.launch {
             movieRepository.removeFromWishlist(movieId)
         }
     }
-
 }

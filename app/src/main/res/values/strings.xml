@@ -2,9 +2,7 @@
     <!-- App Information -->
     <string name="app_name">FilmZoom</string>
 
-    <!-- Top Bar & Main Navigation -->
-    <string name="home_title_popular">Popular</string>
-
+    <!-- Main Navigation -->
     <string name="nav_popular">Popular</string>
     <string name="nav_tending">Trending</string>
     <string name="nav_wishlist">Wishlist</string>
@@ -14,15 +12,12 @@
     <string name="detail_section_synopsis">Synopsis</string>
     <string name="detail_section_genres">Genres</string>
     <string name="detail_section_cast">Main cast</string>
-    <string name="detail_director">Director:</string>
+    <string name="detail_director">Directed by:</string>
     <string name="detail_production">Production:</string>
     <string name="share_release_label">Released: </string>
     <string name="share_footer">Shared from FilmZoom</string>
     <string name="share_chooser_title">Share movie via</string>
     <string name="movie_recommendations_title">Recommended films</string>
-
-
-
 
     <!-- Movie Detail Text Formats -->
     <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
@@ -32,7 +27,7 @@
 
     <!-- Action Buttons -->
     <string name="action_add_to_wishlist">Add to wishlist</string>
-    <string name="action_in_your_list">In your list</string>
+    <string name="action_in_your_list">In wishlist</string>
     <string name="loading_more_movies">Loading more movies…</string>
     <string name="action_retry">Retry</string>
     <string name="action_go_back">Go back</string>
@@ -48,8 +43,7 @@
     <string name="cd_btn_wishlist">Button to add movie to wishlist</string>
     <string name="cd_btn_website">Official website</string>
     <string name="cd_btn_share">Share</string>
-    <string name="cd_remove_from_wishlist">remove from wishlist</string>
-
+    <string name="cd_remove_from_wishlist">Remove from wishlist</string>
 
     <!-- Network / No Connection Errors -->
     <string name="error_no_internet_title">No internet connection</string>
@@ -59,7 +53,6 @@
     <string name="error_operation_failed">We couldn\'t complete the operation</string>
     <string name="error_404">We couldn\'t find the requested content</string>
     <string name="error_500">The server is experiencing issues. Try again later</string>
-    <string name="error_server_generic">A server error occurred (%1$d)</string>
 
     <!-- Unexpected Errors -->
     <string name="error_unexpected_title">An unexpected error occurred</string>

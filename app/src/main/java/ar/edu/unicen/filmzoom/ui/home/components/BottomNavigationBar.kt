@@ -57,7 +57,7 @@ fun BottomNavigationBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 BottomNavItem(
-                    iconRes = R.drawable.ic_home,
+                    iconRes = if (selectedTab == 0) R.drawable.ic_home else R.drawable.ic_home_border,
                     label = stringResource(R.string.nav_popular),
                     isSelected = selectedTab == 0,
                     onClick = { onTabSelected(0) },
@@ -73,7 +73,7 @@ fun BottomNavigationBar(
                 )
 
                 BottomNavItem(
-                    iconRes = R.drawable.ic_heart,
+                    iconRes = if (selectedTab == 2) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border,
                     label = stringResource(id = R.string.nav_wishlist),
                     isSelected = selectedTab == 2,
                     onClick = { onTabSelected(2) },

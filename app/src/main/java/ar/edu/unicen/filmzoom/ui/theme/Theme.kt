@@ -8,14 +8,13 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
-    onPrimary = Color.White,
+    onPrimary = OnPrimary,
     primaryContainer = PrimaryContainerLight,
-    onPrimaryContainer = Color(0xFF002D62),
+    onPrimaryContainer = OnPrimaryContainerLight,
 
     background = MainBackgroundLight,
     onBackground = TextPrimaryLight,
@@ -32,9 +31,9 @@ private val LightColorScheme = lightColorScheme(
 
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
-    onPrimary = Color.White,
+    onPrimary = OnPrimary,
     primaryContainer = PrimaryContainerDark,
-    onPrimaryContainer = Color(0xFF9BC7FF),
+    onPrimaryContainer = OnPrimaryContainerDark,
 
     background = MainBackgroundDark,
     onBackground = TextPrimaryDark,

@@ -43,13 +43,18 @@ fun MovieActionButtons(
         // Botón principal de Agregar a deseados
         Button(
             onClick = onWishlistClick,
-            modifier = Modifier.padding()
+            modifier = Modifier
                 .fillMaxWidth(0.7f) // <-- Ocupa exactamente el 70% del ancho disponible de forma porcentual
                 .height(48.dp),
             shape = MaterialTheme.shapes.extraLarge,
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (isWishlisted) MaterialTheme.colorScheme.primaryContainer
                 else MaterialTheme.colorScheme.primary
+            ),
+            // 💡 Agregamos elevación para que se eleve y tenga contraste
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 3.dp,
+                pressedElevation = 6.dp,
             )
         ) {
             Row(
@@ -57,9 +62,12 @@ fun MovieActionButtons(
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_heart),
+                    painter = painterResource(
+                        id = if (isWishlisted) R.drawable.ic_bookmark
+                        else R.drawable.ic_bookmark_border
+                    ),
                     contentDescription = null,
-                    tint = if (isWishlisted) MaterialTheme.colorScheme.primary
+                    tint = if (isWishlisted) MaterialTheme.colorScheme.onPrimaryContainer
                     else MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
@@ -77,14 +85,10 @@ fun MovieActionButtons(
             // Botón redondo de sitio web
             Surface(
                 modifier = Modifier
-                    .size(48.dp)
-                    .shadow(
-                        elevation = 4.dp,
-                        shape = MaterialTheme.shapes.extraLarge,
-                        spotColor = Color.Black.copy(alpha = 0.20f)
-                    ),
+                    .size(48.dp),
                 shape = MaterialTheme.shapes.extraLarge,
                 color = MaterialTheme.colorScheme.surface,
+                shadowElevation = 3.dp,
                 onClick = onWebsiteClick
             ) {
                 Icon(
@@ -99,12 +103,10 @@ fun MovieActionButtons(
         // Botón redondo de compartir
         Surface(
             modifier = Modifier
-                .size(48.dp)
-                .shadow(elevation = 4.dp,
-                    shape = MaterialTheme.shapes.extraLarge,
-                    spotColor = Color.Black.copy(alpha = 0.20f)),
+                .size(48.dp),
             shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surface,
+            shadowElevation = 3.dp,
             onClick = onShareClick
         ) {
             Icon(
@@ -133,7 +135,7 @@ fun MovieActionButtonsLightPreview() {
 @Preview(name = "Dark Mode - Wishlisted", showBackground = true)
 @Composable
 fun MovieActionButtonsDarkPreview() {
-    FilmZoomTheme(darkTheme = true) {
+    FilmZoomTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colorScheme.background) {
             MovieActionButtons(
                 hasWebsite = true,

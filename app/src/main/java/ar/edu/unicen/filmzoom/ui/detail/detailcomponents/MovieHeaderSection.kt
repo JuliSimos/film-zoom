@@ -79,7 +79,7 @@ fun MovieHeaderSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = AppSpacing.medium)
-                .padding(top = 130.dp), // Empuja la fila hacia abajo para que el póster pise el banner -> me molesta dejarlo con valor aboluto
+                .padding(top = 130.dp),
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium),
             verticalAlignment = Alignment.Bottom
         ) {

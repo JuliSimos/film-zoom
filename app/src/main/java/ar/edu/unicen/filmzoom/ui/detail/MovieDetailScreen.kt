@@ -29,7 +29,6 @@ import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsWireframe
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
-import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import java.util.Locale
 

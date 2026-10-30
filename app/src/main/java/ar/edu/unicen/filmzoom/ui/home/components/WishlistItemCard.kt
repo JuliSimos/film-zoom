@@ -1,6 +1,7 @@
 package ar.edu.unicen.filmzoom.ui.home.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,7 +45,7 @@ fun WishlistItemCard(
     modifier: Modifier = Modifier
 ){
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) {}
             .clickable { onMovieClick() },
@@ -71,8 +72,6 @@ fun WishlistItemCard(
                     model = movie.posterPath,
                     contentDescription = stringResource(R.string.cd_movie_poster, movie.title),
                     modifier = Modifier,
-//                        .padding(4.dp)
-//                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -115,20 +114,21 @@ fun WishlistItemCard(
             }
 
             // BOTÓN DE ELIMINAR
-            Surface(
+            IconButton(
                 onClick = onDeleteClick,
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f),
-                modifier = Modifier.size(48.dp)
-            ) {
-                IconButton(onClick = onDeleteClick) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_delete),
-                        contentDescription = stringResource(R.string.cd_remove_from_wishlist),
-                        tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(24.dp)
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f),
+                        shape = CircleShape
                     )
-                }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_delete),
+                    contentDescription = stringResource(R.string.cd_remove_from_wishlist),
+                    tint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
     }

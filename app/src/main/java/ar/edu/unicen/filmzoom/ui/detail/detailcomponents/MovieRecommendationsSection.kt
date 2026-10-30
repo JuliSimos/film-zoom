@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.domain.model.Movie
 import ar.edu.unicen.filmzoom.ui.home.components.MovieCard
@@ -33,8 +35,10 @@ fun MovieRecommendationsSection(
         ) {
             Text(
                 text = stringResource(R.string.movie_recommendations_title),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground
+                style = MaterialTheme.typography.labelLarge.copy(
+                    letterSpacing = 0.sp),
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Column(

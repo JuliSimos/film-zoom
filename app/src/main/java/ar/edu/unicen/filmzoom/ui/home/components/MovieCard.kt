@@ -42,7 +42,7 @@ fun MovieCard(
     onMovieClicked: () -> Unit
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) {} // Fusiona el texto para TalkBack en un solo anuncio claro
             .clickable { onMovieClicked() },

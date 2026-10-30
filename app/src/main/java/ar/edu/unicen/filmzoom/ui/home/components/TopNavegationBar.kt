@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unicen.filmzoom.R
@@ -28,8 +29,14 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 @Composable
 fun TopNavegationBar(
     modifier: Modifier = Modifier,
-    onSearchClick: () -> Unit = {},
+    selectedTab: Int = 0,
 ) {
+    // Definimos el texto y el icono dinámicamente según la pestaña
+    val (title, iconRes) = when (selectedTab) {
+        0 -> stringResource(R.string.nav_popular) to R.drawable.ic_home
+        1 -> stringResource(R.string.nav_tending) to R.drawable.ic_tendences
+        else -> stringResource(R.string.nav_wishlist) to R.drawable.ic_bookmark
+    }
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -48,32 +55,18 @@ fun TopNavegationBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_film),
+                painter = painterResource(id = iconRes),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(28.dp)
             )
 
             Text(
-                text = stringResource(id = R.string.home_title_popular),
+                text = title,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-//
-//            Spacer(modifier = Modifier.weight(1f))
-//
-//            IconButton(
-//                onClick = onSearchClick,
-//                modifier = Modifier.size(40.dp)
-//            ) {
-//                Icon(
-//                    painter = painterResource(id = R.drawable.ic_search),
-//                    contentDescription = stringResource(id = R.string.cd_search_icon),
-//                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-//                    modifier = Modifier.size(22.dp)
-//                )
-//            }
         }
     }
 }

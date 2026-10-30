@@ -1,12 +1,10 @@
 <resources>
-    <!-- Informacion de la App -->
+    <!-- Información de la App -->
     <string name="app_name">FilmZoom</string>
 
-    <!-- Top Bar y Navegacion Principal -->
-    <string name="home_title_popular">Populares</string>
-
+    <!-- Navegación Principal -->
     <string name="nav_popular">Populares</string>
-    <string name="nav_tending">Tendencia</string>
+    <string name="nav_tending">Tendencias</string>
     <string name="nav_wishlist">Deseados</string>
 
     <!-- Pantalla de Detalle - Secciones -->
@@ -14,14 +12,12 @@
     <string name="detail_section_synopsis">Sinopsis</string>
     <string name="detail_section_genres">Géneros</string>
     <string name="detail_section_cast">Reparto principal</string>
-    <string name="detail_director">Director:</string>
+    <string name="detail_director">Dirección:</string>
     <string name="detail_production">Producción:</string>
     <string name="share_release_label">Estreno: </string>
     <string name="share_footer">Compartido desde FilmZoom</string>
     <string name="share_chooser_title">Compartir película vía</string>
     <string name="movie_recommendations_title">Películas recomendadas</string>
-
-
 
     <!-- Formatos de Texto en Detalle -->
     <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
@@ -29,10 +25,9 @@
     <string name="movie_duration_format">%1$d min</string>
     <string name="movie_rating_format">%1$.1f</string>
 
-
-    <!-- Botones de Accion -->
+    <!-- Botones de Acción -->
     <string name="action_add_to_wishlist">Agregar a deseados</string>
-    <string name="action_in_your_list">En tu lista</string>
+    <string name="action_in_your_list">En deseados</string>
     <string name="loading_more_movies">Cargando más películas…</string>
     <string name="action_retry">Reintentar</string>
     <string name="action_go_back">Volver</string>
@@ -58,7 +53,6 @@
     <string name="error_operation_failed">No pudimos completar la operación</string>
     <string name="error_404">No encontramos el contenido solicitado</string>
     <string name="error_500">El servidor está experimentando problemas. Intentá más tarde</string>
-    <string name="error_server_generic">Ocurrió un error en el servidor (%1$d)</string>
 
     <!-- Errores Inesperados -->
     <string name="error_unexpected_title">Ocurrió un error inesperado</string>
