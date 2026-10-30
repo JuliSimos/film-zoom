@@ -12,7 +12,6 @@ import androidx.navigation.navArgument
 import ar.edu.unicen.filmzoom.ui.home.HomeScreen
 import ar.edu.unicen.filmzoom.ui.detail.MovieDetailScreen
 import ar.edu.unicen.filmzoom.ui.detail.MovieDetailViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @Composable
@@ -44,9 +43,12 @@ fun FilmZoomNavGraph(
 
             MovieDetailScreen(
                 viewModel = viewModel,
+                onMovieClick = { recommendedMovieId ->
+                    navController.navigate("movie_detail/$recommendedMovieId")
+                },
                 onBackClick = {
                     navController.popBackStack()
-                },
+                }
             )
         }
     }

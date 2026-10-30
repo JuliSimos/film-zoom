@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.data.repository.NetworkResult
 import ar.edu.unicen.filmzoom.data.repository.AppError
+import ar.edu.unicen.filmzoom.domain.model.Movie
 import ar.edu.unicen.filmzoom.domain.model.toMovie
 import ar.edu.unicen.filmzoom.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,12 +29,20 @@ class MovieDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
+    private val _recommendations = MutableStateFlow<List<Movie>>(emptyList())
+    val recommendations: StateFlow<List<Movie>?> = _recommendations.asStateFlow() // o StateFlow<List<Movie>>
+
+    // Estado para saber recomendaciones están cargando
+    private val _isRecommendationsLoading = MutableStateFlow(false)
+    val isRecommendationsLoading: StateFlow<Boolean> = _isRecommendationsLoading.asStateFlow()
+
     val isWishlisted: StateFlow<Boolean> = movieRepository.isMovieInWishlist(movieId)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = false
         )
+
 
     init {
         if (movieId != 0)
@@ -50,6 +59,7 @@ class MovieDetailViewModel @Inject constructor(
                     _uiState.value = DetailUiState.Success(
                         details = result.data
                     )
+                    loadRecommendations(id)
                 }
 
                 is NetworkResult.Loading -> {
@@ -96,6 +106,26 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
+    private fun loadRecommendations(movieId: Int) {
+        viewModelScope.launch {
+            _isRecommendationsLoading.value = true
+
+            when (val result = movieRepository.getRecommendations(movieId)) {
+                is NetworkResult.Success -> {
+                    _recommendations.value = result.data.take(6)
+                    _isRecommendationsLoading.value = false
+                }
+                is NetworkResult.Error -> {
+                    _recommendations.value = emptyList()
+                    _isRecommendationsLoading.value = false
+                }
+                is NetworkResult.Loading -> {
+                    _isRecommendationsLoading.value = true
+                }
+            }
+        }
+    }
+
     fun onWishlistClick() {
         val currentState = _uiState.value
         if (currentState is DetailUiState.Success) {
@@ -112,3 +142,4 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 }
+

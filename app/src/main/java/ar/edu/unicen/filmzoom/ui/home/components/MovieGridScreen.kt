@@ -31,6 +31,7 @@ fun MovieGridScreen(
     onMovieClick: (Int) -> Unit = {}, //Recibe el id de la pelicula
     movieItemContent: @Composable (Movie) -> Unit = { movie ->
         MovieCard(
+            modifier = Modifier,
             movie = movie,
             onMovieClicked = { onMovieClick(movie.id) }
         )
@@ -61,6 +62,7 @@ fun MovieGridScreen(
             }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
+            val uniqueMovies = movies.distinctBy { it.id }
             LazyVerticalGrid(
                 state = gridState,
                 columns = GridCells.Fixed(screenColumns),
@@ -70,7 +72,7 @@ fun MovieGridScreen(
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
             ) {
                 items(
-                    items = movies,
+                    items = uniqueMovies,
                     key = { movie -> movie.id }
                 ) { movie ->
                     movieItemContent(movie)

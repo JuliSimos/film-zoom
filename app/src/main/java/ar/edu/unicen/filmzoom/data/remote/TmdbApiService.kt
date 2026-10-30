@@ -2,6 +2,7 @@ package ar.edu.unicen.filmzoom.data.remote
 
 import ar.edu.unicen.filmzoom.data.model.CreditsResponseDto
 import ar.edu.unicen.filmzoom.data.model.MovieDetailResponseDto
+import ar.edu.unicen.filmzoom.data.model.MovieResponseDto
 import ar.edu.unicen.filmzoom.data.model.MoviesPageResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,6 +27,13 @@ interface TmdbApiService {
         @Path("movie_id") movieId: Int,
         @Query("language") language: String
     ): MovieDetailResponseDto
+
+    @GET("movie/{movie_id}/recommendations")
+    suspend fun getRecommendations(
+        @Path("movie_id") movieId: Int,
+        @Query("language") language: String
+    ): MoviesPageResponseDto
+
 
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(

@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unicen.filmzoom.R
@@ -36,6 +37,7 @@ import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 @Composable
 fun MovieCard(
+    modifier: Modifier,
     movie : Movie,
     onMovieClicked: () -> Unit
 ) {
@@ -66,8 +68,6 @@ fun MovieCard(
                     model = movie.posterPath,
                     contentDescription = stringResource(R.string.cd_movie_poster, movie.title),
                     modifier = Modifier,
-//                        .padding(4.dp)
-//                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -88,7 +88,7 @@ fun MovieCard(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 2,
-                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 // FILA INFERIOR: AÑO Y RATING
@@ -128,6 +128,7 @@ fun MovieCardLightPreview() {
     FilmZoomTheme(darkTheme = false) {
         Surface(color = MaterialTheme.colorScheme.background) {
             MovieCard(
+                modifier = Modifier,
                 movie = Movie(
                     id = 1,
                     title = "Inception",
@@ -135,7 +136,7 @@ fun MovieCardLightPreview() {
                     releaseDate = "2010-07-15",
                     voteAverage = 8.8,
                 ),
-                onMovieClicked = {}
+                onMovieClicked = {},
             )
         }
     }
@@ -147,6 +148,7 @@ fun MovieCardDarkPreview() {
     FilmZoomTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.background) {
                 MovieCard(
+                    modifier = Modifier,
                     movie = Movie(
                         id = 1,
                         title = "The Lord of the Rings: The Fellowship of the Ring",

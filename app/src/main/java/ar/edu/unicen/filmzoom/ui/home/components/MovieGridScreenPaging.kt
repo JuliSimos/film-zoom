@@ -76,6 +76,7 @@ fun MovieGridScreenPaging(
 
             else -> {
                 Box(modifier = Modifier.fillMaxSize()) {
+
                     LazyVerticalGrid(
                         state = gridState,
                         columns = GridCells.Fixed(screenColumns),
@@ -87,12 +88,15 @@ fun MovieGridScreenPaging(
                         items(
                             count = lazyPagingItems.itemCount,
                             key = { index ->
-                                lazyPagingItems[index]?.id ?: index
+                                val movie = lazyPagingItems[index]
+                                // Clave compuesta única garantizada para Paging 3
+                                if (movie != null) "paging_${movie.id}_$index" else "placeholder_$index"
                             }
                         ) { index ->
                             val movie = lazyPagingItems[index]
                             if (movie != null) {
                                 MovieCard(
+                                    modifier = Modifier,
                                     movie = movie,
                                     onMovieClicked = { onMovieClick(movie.id) }
                                 )

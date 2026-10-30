@@ -26,7 +26,10 @@ import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieCastSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieDetailTopBar
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieGenresSection
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieHeaderSection
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsSection
+import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsWireframe
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
+import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import java.util.Locale
 
@@ -34,10 +37,13 @@ import java.util.Locale
 fun MovieDetailScreen(
     modifier: Modifier = Modifier,
     viewModel: MovieDetailViewModel,
+    onMovieClick: (Int) -> Unit,
     onBackClick: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsState()
     val isWishlisted by viewModel.isWishlisted.collectAsState()
+    val recommendations by viewModel.recommendations.collectAsState()
+    val isLoadingRecommendations by viewModel.isRecommendationsLoading.collectAsState()
     val context = LocalContext.current
 
     val releaseLabel = stringResource(R.string.share_release_label)
@@ -174,6 +180,24 @@ fun MovieDetailScreen(
                                 modifier = Modifier.padding(horizontal = AppSpacing.medium),
                                 cast = details.cast
                             )
+                        }
+                        // 6. Sección de Recomendaciones hacia abajo (máximo 6 ítems)
+                        if (isLoadingRecommendations || !recommendations.isNullOrEmpty()) {
+                            item {
+                                if (isLoadingRecommendations) {
+                                    MovieRecommendationsWireframe(
+                                        modifier = Modifier.padding(horizontal = AppSpacing.medium)
+                                    )
+                                } else {
+                                    MovieRecommendationsSection(
+                                        modifier = Modifier.padding(horizontal = AppSpacing.medium),
+                                        movies = recommendations!!,
+                                        onMovieClick = { recommendedMovieId ->
+                                            onMovieClick(recommendedMovieId)
+                                        }
+                                    )
+                                }
+                            }
                         }
                     }
                 }

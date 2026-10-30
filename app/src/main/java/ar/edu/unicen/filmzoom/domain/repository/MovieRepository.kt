@@ -22,7 +22,7 @@ interface MovieRepository {
     // Para la pantalla de Detalle
     suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails>
 
-
+    suspend fun getRecommendations(movieId: Int): NetworkResult<List<Movie>>
     // --- 2. Origen Local (Deseados / Favoritos) ---
     fun getWishlistMovies(): Flow<List<Movie>>
 
