@@ -24,8 +24,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unicen.filmzoom.R
@@ -81,32 +84,45 @@ fun MovieCard(
                     .padding(AppSpacing.small),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
             ) {
-                // TÍTULO
-                Text(
-                    text = movie.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                // FILA INFERIOR: AÑO Y RATING
+                // FILA SUPERIOR: TÍTULO Y AÑO JUNTOS
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall),
+                    verticalAlignment = Alignment.Bottom
                 ) {
-                    // Año
-                    if (movie.releaseDate.length >= 4) {
-                        Text(
-                            text = movie.releaseDate.take(4),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    val releaseYear = if (movie.releaseDate.length >= 4) " (${movie.releaseDate.take(4)})" else ""
+
+                    val titleWithYear = buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        ) {
+                            append(movie.title)
+                        }
+
+                        if (releaseYear.isNotBlank()) {
+                            withStyle(
+                                style = SpanStyle(
+                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                    fontWeight = FontWeight.Normal,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            ) {
+                                append(releaseYear)
+                            }
+                        }
                     }
-                    RatingChip(movie.voteAverage)
+
+                    Text(
+                        text = titleWithYear,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
+                RatingChip(movie.voteAverage)
             }
 
             // FLECHA A LA DERECHA

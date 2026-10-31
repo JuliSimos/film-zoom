@@ -19,7 +19,6 @@ class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ): ViewModel() {
 
-    // Streams paginados de red (Paging 3)
     val popularMovies: Flow<PagingData<Movie>> = movieRepository
         .getPopularMoviesStream()
         .cachedIn(viewModelScope)

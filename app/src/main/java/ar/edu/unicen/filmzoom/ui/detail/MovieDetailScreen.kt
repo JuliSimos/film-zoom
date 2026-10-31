@@ -10,9 +10,14 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -30,7 +35,9 @@ import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsSec
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieRecommendationsWireframe
 import ar.edu.unicen.filmzoom.ui.detail.detailcomponents.MovieSynopsisCard
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
+import kotlinx.coroutines.launch
 import java.util.Locale
+import androidx.compose.runtime.setValue
 
 @Composable
 fun MovieDetailScreen(
@@ -49,13 +56,29 @@ fun MovieDetailScreen(
     val footerText = stringResource(R.string.share_footer)
     val chooserTitle = stringResource(R.string.share_chooser_title)
 
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    val msgAdded = stringResource(R.string.msg_movie_added)
+    val msgRemoved = stringResource(R.string.msg_movie_removed)
+
+    var isNavigatingBack by remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MovieDetailTopBar(
-                onBackClick = onBackClick
+                onBackClick = {
+                    if (!isNavigatingBack) {
+                        isNavigatingBack = true
+                        onBackClick()
+                    }
+                }
             )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { innerPadding ->
         Box(
@@ -112,7 +135,13 @@ fun MovieDetailScreen(
                                 hasWebsite = hasWebsite,
                                 isWishlisted = isWishlisted,
                                 onWishlistClick = {
+                                    val willBeWishlisted = isWishlisted
+
                                     viewModel.onWishlistClick()
+                                    scope.launch {
+                                        val message = if (willBeWishlisted) msgRemoved else msgAdded
+                                        snackbarHostState.showSnackbar(message = message)
+                                    }
                                 },
                                 onWebsiteClick = {
                                     val url = details.homepage
@@ -121,8 +150,6 @@ fun MovieDetailScreen(
                                         context.startActivity(intent)
                                     }
                                 },
-
-
                                 onShareClick = {
                                     val formattedVote = String.format(Locale.US, "%.1f", details.voteAverage)
                                     val maxOverviewLenght = 140

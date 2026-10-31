@@ -20,6 +20,7 @@
     <string name="movie_recommendations_title">Películas recomendadas</string>
 
     <!-- Formatos de Texto en Detalle -->
+    <string name="movie_title_format">%1$s (%2$s)</string>
     <string name="detail_movie_metadata_format">%1$s · %2$s min</string>
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>
@@ -44,6 +45,8 @@
     <string name="cd_btn_website">Página oficial</string>
     <string name="cd_btn_share">Compartir</string>
     <string name="cd_remove_from_wishlist">Eliminar de la lista de deseados</string>
+    <string name="msg_movie_added">Película agregada a la lista</string>
+    <string name="msg_movie_removed">Película eliminada de la lista</string>
 
     <!-- Errores de Red / Sin Conexión -->
     <string name="error_no_internet_title">Sin conexión a internet</string>
