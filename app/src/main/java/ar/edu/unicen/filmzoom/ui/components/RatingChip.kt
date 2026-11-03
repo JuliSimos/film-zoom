@@ -32,7 +32,9 @@ fun RatingChip(
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.small
+        shape = MaterialTheme.shapes.small,
+        shadowElevation = 0.dp
+
     ) {
         Row(
             modifier = Modifier.padding(horizontal = AppSpacing.small, vertical = AppSpacing.extraSmall),

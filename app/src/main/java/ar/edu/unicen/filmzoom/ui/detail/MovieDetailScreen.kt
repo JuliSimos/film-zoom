@@ -107,7 +107,6 @@ fun MovieDetailScreen(
                                 onBackClick()
                             }
                         },
-                        onDismiss = { onBackClick() }
                     )
                 }
 
@@ -182,7 +181,7 @@ fun MovieDetailScreen(
                             )
                         }
 
-                        // 3. Géneros (Chips horizontales)
+                        // 3. Géneros
                         item {
                             MovieGenresSection(
                                 modifier = Modifier.padding(horizontal = AppSpacing.medium),

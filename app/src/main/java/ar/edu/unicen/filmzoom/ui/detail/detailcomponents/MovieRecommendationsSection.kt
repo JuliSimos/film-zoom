@@ -43,7 +43,7 @@ fun MovieRecommendationsSection(
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
             ) {
                 rows.forEach { rowMovies ->
                     Row(

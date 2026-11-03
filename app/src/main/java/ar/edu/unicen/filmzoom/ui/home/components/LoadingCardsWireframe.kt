@@ -50,7 +50,8 @@ fun LoadingCardsWireframe(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = AppSpacing.medium),
+            .padding(horizontal = AppSpacing.medium)
+            .padding(top = AppSpacing.small),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.small),
         userScrollEnabled = false
     ) {

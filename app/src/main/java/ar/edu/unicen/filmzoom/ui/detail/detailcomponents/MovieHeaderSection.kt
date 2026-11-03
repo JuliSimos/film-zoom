@@ -29,13 +29,13 @@ import ar.edu.unicen.filmzoom.ui.components.RatingChip
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 import coil.compose.AsyncImage
+import androidx.compose.ui.draw.shadow
 
 @Composable
 fun MovieHeaderSection(
     modifier: Modifier = Modifier,
     detailMovie: MovieDetails?
 ) {
-    // Si la película es nula (está cargando), podemos retornar un contenedor vacío o un placeholder
     if (detailMovie == null) return
 
     Box(
@@ -43,7 +43,7 @@ fun MovieHeaderSection(
             .fillMaxWidth()
             .padding(bottom = AppSpacing.small),
     ) {
-        // 1. Imagen de fondo superior (Backdrop) con degradado hacia abajo
+        // 1. Imagen de fondo superior (Backdrop)
 
         Box(
             modifier = Modifier
@@ -108,9 +108,10 @@ fun MovieHeaderSection(
                     .padding(bottom = AppSpacing.extraSmall),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
             ) {
-
-                RatingChip(detailMovie.voteAverage)
-
+                RatingChip(
+                    rating = detailMovie.voteAverage,
+                    modifier = Modifier.shadow(elevation = 3.dp, shape = MaterialTheme.shapes.small)
+                )
 
                 Text(
                     text = detailMovie.title,

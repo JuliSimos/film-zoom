@@ -71,7 +71,7 @@ data class CastMemberDto(
     @SerializedName("name")
     val name: String,
     @SerializedName("character")
-    val character: String, // Papel / Personaje del actor
+    val character: String,
     @SerializedName("profile_path")
     val profilePath: String?
 )

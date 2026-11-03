@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
+import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
 
 
@@ -40,64 +41,32 @@ fun MessaggeError(
     solution: String,
     buttonText: String,
     onActionClick: () -> Unit,
-    onDismiss: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = .1f)),
+            .background(Color.Black.copy(alpha = .4f)),
         contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier
-                .padding(24.dp)
+                .padding(AppSpacing.medium)
                 .background(
                     MaterialTheme.colorScheme.background,
-                    shape = RoundedCornerShape(16.dp)
+                    shape = MaterialTheme.shapes.large
                 )
-                .padding(14.dp, 14.dp),
+                .padding(AppSpacing.medium, AppSpacing.large),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.normal)
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
-
-            ) {
-                    Text(
-                        text = "Error",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.align(Alignment.BottomStart)
-                    )
-
-                // 2. Botón de cerrar pegado estrictamente a la esquina superior derecha
-                IconButton(
-                    onClick = onDismiss, // Conectado a la acción de cerrar
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(48.dp),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        contentColor = MaterialTheme.colorScheme.onBackground
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "Cerrar"
-                    )
-                }
-            }
-
             Text(
                 text = message,
-                fontSize = 24.sp,
+                style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
 
-            // Texto de solución
             Text(
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 text = solution,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -109,12 +78,12 @@ fun MessaggeError(
                     containerColor = MaterialTheme.colorScheme.primary,
                     disabledContentColor = MaterialTheme.colorScheme.onSecondary
                 ),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp),
-                shape = RoundedCornerShape(12.dp)
+                contentPadding = PaddingValues(horizontal = AppSpacing.large, vertical = AppSpacing.normal),
+                shape = MaterialTheme.shapes.medium
             ) {
                 Text(
                     text = buttonText,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -131,7 +100,6 @@ fun MessaggeErrorPreview() {
             solution = "Comprobá que el Wi-Fi o los datos móviles estén activados",
             buttonText = "Reintentar",
             onActionClick = { },
-            onDismiss = { }
         )
     }
 }
@@ -145,7 +113,6 @@ fun MessaggeErrorPreviewDark() {
             solution = "Comprobá que el Wi-Fi o los datos móviles estén activados",
             buttonText = "Reintentar",
             onActionClick = { },
-            onDismiss = { }
         )
     }
 }

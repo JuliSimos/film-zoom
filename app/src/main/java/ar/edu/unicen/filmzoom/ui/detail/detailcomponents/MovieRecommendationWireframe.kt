@@ -60,12 +60,11 @@ fun MovieRecommendationsWireframe(
                 .background(skeletonColor)
         )
 
-        // Simulamos un par de tarjetas fantasma en formato columna/grilla para las recomendaciones
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
         ) {
-            repeat(3) { // 3 filas fantasma para simular las recomendaciones
+            repeat(3) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.small,

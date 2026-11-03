@@ -28,7 +28,7 @@ fun MovieGridScreen(
     modifier: Modifier = Modifier,
     innerPadding: PaddingValues = PaddingValues(0.dp),
     movies: List<Movie>,
-    onMovieClick: (Int) -> Unit = {}, //Recibe el id de la pelicula
+    onMovieClick: (Int) -> Unit = {},
     movieItemContent: @Composable (Movie) -> Unit = { movie ->
         MovieCard(
             modifier = Modifier,
@@ -69,7 +69,7 @@ fun MovieGridScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(horizontal = AppSpacing.medium, vertical = AppSpacing.small),
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall),
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.mediumSmall)
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
             ) {
                 items(
                     items = uniqueMovies,
@@ -104,7 +104,7 @@ fun MovieGridScreen(
                         .align(Alignment.CenterEnd)
                         .fillMaxHeight()
                         .width(4.dp)
-                        .padding(vertical = 8.dp)
+                        .padding(vertical = AppSpacing.small)
                 ) {
                     Box(
                         modifier = Modifier

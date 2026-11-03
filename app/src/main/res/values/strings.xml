@@ -47,6 +47,7 @@
     <string name="cd_remove_from_wishlist">Remove from wishlist</string>
     <string name="msg_movie_added">Movie added to wishlist</string>
     <string name="msg_movie_removed">Movie removed from wishlist</string>
+    <string name="cd_scroll_to_top">Scroll to top</string>
 
 
     <!-- Network / No Connection Errors -->
