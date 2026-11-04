@@ -44,14 +44,13 @@ fun MovieActionButtons(
         Button(
             onClick = onWishlistClick,
             modifier = Modifier
-                .fillMaxWidth(0.7f) // <-- Ocupa exactamente el 70% del ancho disponible de forma porcentual
+                .fillMaxWidth(0.7f)
                 .height(48.dp),
             shape = MaterialTheme.shapes.extraLarge,
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (isWishlisted) MaterialTheme.colorScheme.primaryContainer
                 else MaterialTheme.colorScheme.primary
             ),
-            // 💡 Agregamos elevación para que se eleve y tenga contraste
             elevation = ButtonDefaults.buttonElevation(
                 defaultElevation = 3.dp,
                 pressedElevation = 6.dp,

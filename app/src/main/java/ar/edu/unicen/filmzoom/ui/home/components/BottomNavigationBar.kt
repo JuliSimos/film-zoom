@@ -102,11 +102,10 @@ private fun BottomNavItem(
 
     Column(
         modifier = modifier
-            // Usa selectable en lugar de clickable para avisarle a TalkBack que es una pestaña y si está seleccionada
             .selectable(
                 selected = isSelected,
                 onClick = onClick,
-                role = Role.Tab, // Anuncia "Pestaña, seleccionada/no seleccionada"
+                role = Role.Tab,
                 interactionSource = remember { MutableInteractionSource() },
                 indication = ripple(bounded = false, radius = 32.dp),
             )

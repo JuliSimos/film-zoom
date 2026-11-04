@@ -66,7 +66,7 @@ fun LoadingCardsWireframe(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // PÓSTER
+                    // Póster
                     Box(
                         modifier = Modifier
                             .width(90.dp)
@@ -76,7 +76,7 @@ fun LoadingCardsWireframe(
 
                     Spacer(modifier = Modifier.width(AppSpacing.small))
 
-                    // COLUMNA DE INFORMACIÓN
+                    // Columna de info
                     Column(
                         modifier = Modifier
                             .weight(1f)

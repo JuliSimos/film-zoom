@@ -3,10 +3,9 @@ package ar.edu.unicen.filmzoom.data.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ar.edu.unicen.filmzoom.domain.model.Movie
-import ar.edu.unicen.filmzoom.ui.home.components.LoadingCardsWireframe
 
 class MoviePagingSource(
-    private val fetchMovies: suspend (page: Int) -> List<Movie> // O tu DTO/Modelo de API
+    private val fetchMovies: suspend (page: Int) -> List<Movie>
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
@@ -14,7 +13,7 @@ class MoviePagingSource(
         return try {
             val movies = fetchMovies(page)
 
-            // Si la API devuelve una lista vacía, cortamos la paginación acá y evitamos crashes
+            // Si la API devuelve una lista vacía, cortamos la paginación para evitamos crashes
             val nextKey = if (movies.isEmpty()) null else page + 1
 
             LoadResult.Page(
@@ -23,8 +22,7 @@ class MoviePagingSource(
                 nextKey = nextKey
             )
         } catch (exception: Exception) {
-            // Si ocurre un error (por ejemplo, pasarse del límite de páginas de Trending),
-            // en lugar de crashear, devolvemos LoadResult.Error o cerramos el flujo si es fin de datos.
+            // Si ocurre un error en lugar de crashear, devolvemos LoadResult.Error o cerramos el flujo si es fin de datos
             LoadResult.Error(exception)
         }
     }

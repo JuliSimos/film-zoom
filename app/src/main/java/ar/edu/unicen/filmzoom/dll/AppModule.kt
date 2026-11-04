@@ -22,12 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object AppModule{
 
-    // Creamos el interceptor de logs
-    val loggingInterceptor = okhttp3.logging.HttpLoggingInterceptor().apply {
-        level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY // Muestra todo el JSON y cabeceras
-    }
-
-    // 1. Proveemos el cliente HTTP (OkHttpClient) configurando el Token en las cabeceras
+    // Config el Token en las cabeceras
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -40,10 +35,8 @@ object AppModule{
                     .build()
                 chain.proceed(newRequest)
             }
-            .addInterceptor(loggingInterceptor)
             .build()
     }
-    // 2. Proveemos la instancia de Retrofit usando el cliente HTTP anterior y Gson
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -54,14 +47,12 @@ object AppModule{
             .build()
     }
 
-    // 3. Proveemos nuestra interfaz de servicios (TmdbApiService)
     @Provides
     @Singleton
     fun provideTmdbApiService(retrofit: Retrofit): TmdbApiService {
         return retrofit.create(TmdbApiService::class.java)
     }
 
-    // 4. Proveemos el Repositorio de la API
     @Provides
     @Singleton
     fun provideMovieRepository(
@@ -69,7 +60,6 @@ object AppModule{
     ): MovieRepository {
         return movieRepositoryImpl
     }
-    // 5. Proveedores de Room  (Base de datos local)
 
     @Provides
     @Singleton

@@ -8,10 +8,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,10 +39,10 @@ fun MovieGridScreenPaging(
     modifier: Modifier = Modifier,
     innerPadding: PaddingValues = PaddingValues(0.dp),
     lazyPagingItems: LazyPagingItems<Movie>,
+    gridState: LazyGridState = rememberLazyGridState(),
     onMovieClick: (Int) -> Unit = {}
 ) {
     val refreshState = lazyPagingItems.loadState.refresh
-    val gridState = rememberLazyGridState()
     val scope = rememberCoroutineScope()
 
     val showScrollToTopButton by remember {
@@ -141,14 +141,14 @@ fun MovieGridScreenPaging(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .fillMaxHeight()
-                            .width(4.dp)
+                            .width(AppSpacing.extraSmall)
                             .padding(vertical = AppSpacing.small)
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(width = 4.dp, height = thumbHeight)
+                                .size(width = AppSpacing.extraSmall, height = thumbHeight)
                                 .offset(y = currentOffset)
-                                .clip(RoundedCornerShape(2.dp))
+                                .clip(MaterialTheme.shapes.extraSmall)
                                 .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.6f))
                         )
                     }

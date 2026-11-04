@@ -82,7 +82,6 @@ data class CrewMemberDto(
     val job: String
 )
 
-// --- Función de extensión para mapear el detalle a Dominio ---
 fun MovieDetailResponseDto.toDomain(
     crewList: List<CrewMemberDto>,
     castList: List<CastMemberDto>
@@ -91,7 +90,7 @@ fun MovieDetailResponseDto.toDomain(
     // Buscamos al director dentro de la lista de crew
     val directorName = crewList.firstOrNull { it.job.equals("Director", ignoreCase = true) }?.name
 
-// Tamaños específicos para cada tipo de imagen
+    // Tamaños específicos para cada tipo de imagen
     val posterBaseUrl = "https://image.tmdb.org/t/p/w500"   // Pósteres y banners grandes
     val profileBaseUrl = "https://image.tmdb.org/t/p/w185"  // Fotos de actores (más livianas)
 

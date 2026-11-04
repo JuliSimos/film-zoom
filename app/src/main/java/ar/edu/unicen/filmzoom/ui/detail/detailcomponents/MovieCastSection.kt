@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,14 +50,12 @@ fun MovieCastSection(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium)
         ) {
             items(cast.take(10)) { actor ->
                 CastMemberItem(actor = actor)
             }
-
         }
     }
 }
@@ -66,39 +65,45 @@ fun CastMemberItem(
     actor: CastMember
 ) {
     Column(
-        modifier = Modifier.width(72.dp),
+        modifier = Modifier.width(96.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(AppSpacing.extraSmall)
     ) {
         Surface(
-            modifier = Modifier
-                .size(60.dp),
+            modifier = Modifier.size(60.dp),
             shape = CircleShape,
             color = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             AsyncImage(
                 model = actor.profilePath,
-                contentDescription = stringResource(R.string.cd_actor_photo , actor.name),
+                contentDescription = stringResource(R.string.cd_actor_photo, actor.name),
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
         }
 
+        // Nombre del actor: hasta 2 líneas
         Text(
             text = actor.name,
             style = MaterialTheme.typography.labelMedium.copy(
-                letterSpacing = 0.sp),
+                letterSpacing = 0.sp
+            ),
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
-            maxLines = 1,
+            maxLines = 2,
+            textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis
         )
+
+        // Nombre del personaje
         Text(
             text = actor.character,
             style = MaterialTheme.typography.labelSmall.copy(
-                letterSpacing = 0.sp),
+                letterSpacing = 0.sp
+            ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
+            maxLines = 2,
+            textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis
         )
     }

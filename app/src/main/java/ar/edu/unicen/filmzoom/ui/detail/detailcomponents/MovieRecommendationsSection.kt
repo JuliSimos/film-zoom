@@ -26,7 +26,7 @@ fun MovieRecommendationsSection(
         // Si está en horizontal (Landscape), 2 columnas. si está en vertical, 1
         val columns = if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 2 else 1
 
-        // Agrupamos la lista de películas en bloques (filas) según la cantidad de columnas
+        // Agrupamos la lista de películas en filas según la cantidad de columnas
         val rows = movies.chunked(columns)
 
         Column(

@@ -59,14 +59,14 @@ fun LoadingDetailWireframe(
         verticalArrangement = Arrangement.spacedBy(AppSpacing.large),
         userScrollEnabled = false
     ) {
-        // 1. Esqueleto de la Cabecera (Banner + Póster superpuesto + Títulos)
+        // Esqueleto de la Cabecera (Banner + Póster superpuesto + Títulos)
         item {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = AppSpacing.small)
             ) {
-                // Fila con póster flotante y textos falsos
+                // Fila con póster flotante y textos
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -75,7 +75,7 @@ fun LoadingDetailWireframe(
                     horizontalArrangement = Arrangement.spacedBy(AppSpacing.medium),
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    // Póster flotante falso
+                    // Póster flotante
                     Box(
                         modifier = Modifier
                             .width(110.dp)
@@ -84,7 +84,7 @@ fun LoadingDetailWireframe(
                         .background(accentColor)
                     )
 
-                    // Textos descriptivos falsos
+                    // Textos descriptivos
                     Column(
                         modifier = Modifier
                             .weight(1f)
@@ -117,7 +117,7 @@ fun LoadingDetailWireframe(
             }
         }
 
-        // 2. Esqueleto de Botones de Acción (Deseados, Web, Compartir)
+        // Esqueleto de Botones de Acción (Deseados, Web, Compartir)
         item {
             Row(
                 modifier = Modifier
@@ -142,7 +142,7 @@ fun LoadingDetailWireframe(
             }
         }
 
-        // 3. Esqueleto de Géneros (Chips horizontales falsos)
+        // Esqueleto de Géneros
         item {
             Row(
                 modifier = Modifier
@@ -162,7 +162,7 @@ fun LoadingDetailWireframe(
             }
         }
 
-        // 4. Esqueleto de Sinopsis
+        // Esqueleto de Sinopsis
         item {
             Card(
                 modifier = Modifier
@@ -202,7 +202,7 @@ fun LoadingDetailWireframe(
             }
         }
 
-        // 5. Esqueleto de Reparto Principal (Avatares circulares falsos)
+        // Esqueleto de Reparto Principal
         item {
             Column(
                 modifier = Modifier

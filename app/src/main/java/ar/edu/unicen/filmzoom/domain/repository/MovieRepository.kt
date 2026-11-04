@@ -9,27 +9,28 @@ import ar.edu.unicen.filmzoom.domain.model.MovieDetails
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    // --- 1. Origen Remoto (API TMDB) ---
+    // Origen Remoto (API TMDB)
 
-    // Para la sección de Populares
-    suspend fun getPopularMovies(): NetworkResult<List<Movie>>
-    fun getPopularMoviesStream(): Flow<PagingData<Movie>>
+    // sección de Populares
+    fun getPopularMovies(): Flow<PagingData<Movie>>
 
-    // Para la sección de Tendencias
-    suspend fun getTrendingMovies(): NetworkResult<List<Movie>>
-    fun getTrendingMoviesStream(): Flow<PagingData<Movie>>
+    // sección de Tendencias
+    fun getTrendingMovies(): Flow<PagingData<Movie>>
 
-    // Para la pantalla de Detalle
+    fun searchMovies(query: String): Flow<PagingData<Movie>>
+
+    // pantalla de Detalle
     suspend fun getMovieDetail(movieId: Int): NetworkResult<MovieDetails>
 
     suspend fun getRecommendations(movieId: Int): NetworkResult<List<Movie>>
-    // --- 2. Origen Local (Deseados / Favoritos) ---
+
+    // Origen Local (Deseados)
     fun getWishlistMovies(): Flow<List<Movie>>
 
-    // Pendiente: Métodos para gestionar los deseos localmente
     suspend fun addToWishlist(movie: Movie)
 
     suspend fun removeFromWishlist(movieId: Int)
 
     fun isMovieInWishlist(movieId: Int): Flow<Boolean>
+
 }

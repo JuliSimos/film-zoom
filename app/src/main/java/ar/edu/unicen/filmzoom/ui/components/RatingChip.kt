@@ -2,10 +2,8 @@ package ar.edu.unicen.filmzoom.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -45,7 +43,7 @@ fun RatingChip(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
                 tint = RatingStarLight,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(AppSpacing.medium)
             )
 
             Text(

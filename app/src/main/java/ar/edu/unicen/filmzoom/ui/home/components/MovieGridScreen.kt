@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
@@ -103,14 +102,14 @@ fun MovieGridScreen(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .fillMaxHeight()
-                        .width(4.dp)
+                        .width(AppSpacing.extraSmall)
                         .padding(vertical = AppSpacing.small)
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(width = 4.dp, height = thumbHeight)
+                            .size(width = AppSpacing.extraSmall, height = thumbHeight)
                             .offset(y = currentOffset)
-                            .clip(RoundedCornerShape(2.dp))
+                            .clip(MaterialTheme.shapes.extraSmall)
                             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.6f))
                     )
                 }

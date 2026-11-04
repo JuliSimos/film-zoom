@@ -6,6 +6,7 @@
     <string name="nav_popular">Populares</string>
     <string name="nav_tending">Tendencias</string>
     <string name="nav_wishlist">Deseados</string>
+    <string name="search_hint">Buscar película...</string>
 
     <!-- Pantalla de Detalle - Secciones -->
     <string name="detail_top_bar_title">Detalle película</string>
@@ -25,6 +26,7 @@
     <string name="movie_metadata_format">%1$s · %2$s</string>
     <string name="movie_duration_format">%1$d min</string>
     <string name="movie_rating_format">%1$.1f</string>
+    <string name="search_no_results">No se encontró la película \"%1$s\"</string>
 
     <!-- Botones de Acción -->
     <string name="action_add_to_wishlist">Agregar a deseados</string>
@@ -48,6 +50,8 @@
     <string name="msg_movie_added">Película agregada a la lista</string>
     <string name="msg_movie_removed">Película eliminada de la lista</string>
     <string name="cd_scroll_to_top">Volver arriba</string>
+    <string name="cd_close_search">Cerrar búsqueda</string>
+    <string name="cd_search_action">Buscar</string>
 
     <!-- Errores de Red / Sin Conexión -->
     <string name="error_no_internet_title">Sin conexión a internet</string>

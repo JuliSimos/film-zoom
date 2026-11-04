@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -36,6 +38,7 @@ fun MovieDetailTopBar(
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .height(64.dp)
             .statusBarsPadding(),
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(
@@ -46,6 +49,7 @@ fun MovieDetailTopBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .fillMaxHeight()
                 .padding(AppSpacing.medium),
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small),
             verticalAlignment = Alignment.CenterVertically
@@ -55,7 +59,7 @@ fun MovieDetailTopBar(
                 contentDescription = backArrowDescription,
                 tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
-                    .padding(start = 2.dp)
+                    .padding(start = AppSpacing.extraSmall)
                     .size(28.dp)
                     .clickable(
                         onClick = onBackClick,

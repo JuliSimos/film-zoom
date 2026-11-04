@@ -34,7 +34,7 @@ fun FilmZoomNavGraph(
             )
         }
 
-        // Pantalla de Detalle recibiendo el id_movie
+        // Pantalla de Detalle
         composable(
             route = "movie_detail/{movieId}",
             arguments = listOf(navArgument("movieId") { type = NavType.IntType })

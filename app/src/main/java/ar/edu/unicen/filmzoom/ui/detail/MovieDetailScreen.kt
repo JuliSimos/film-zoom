@@ -117,14 +117,14 @@ fun MovieDetailScreen(
                         contentPadding = PaddingValues(bottom = AppSpacing.extraLarge),
                         verticalArrangement = Arrangement.spacedBy(AppSpacing.medium)
                     ) {
-                        // 1. Cabecera (Banner + Póster superpuesto + Título + Rating)
+                        // Cabecera (Banner + Póster superpuesto + Título + Rating)
                         item {
                             MovieHeaderSection(
                                 detailMovie = details
                             )
                         }
 
-                        // 2. Botones de acción principales (Deseados, Web, Compartir)
+                        // Botones de acción principales (Deseados, Web, Compartir)
                         val hasWebsite = !details.homepage.isNullOrBlank()
                         item {
                             MovieActionButtons(
@@ -181,7 +181,7 @@ fun MovieDetailScreen(
                             )
                         }
 
-                        // 3. Géneros
+                        // Géneros
                         item {
                             MovieGenresSection(
                                 modifier = Modifier.padding(horizontal = AppSpacing.medium),
@@ -189,7 +189,7 @@ fun MovieDetailScreen(
                             )
                         }
 
-                        // 4. Sinopsis y Director
+                        // Sinopsis y Director
                         item {
                             MovieSynopsisCard(
                                 modifier = Modifier.padding(horizontal = AppSpacing.medium),
@@ -199,14 +199,14 @@ fun MovieDetailScreen(
                             )
                         }
 
-                        // 5. Reparto principal
+                        // Reparto principal
                         item {
                             MovieCastSection(
                                 modifier = Modifier.padding(horizontal = AppSpacing.medium),
                                 cast = details.cast
                             )
                         }
-                        // 6. Sección de Recomendaciones hacia abajo (máximo 6 ítems)
+                        // Sección de Recomendaciones hacia abajo (máximo 6 ítems)
                         if (isLoadingRecommendations || !recommendations.isNullOrEmpty()) {
                             item {
                                 if (isLoadingRecommendations) {

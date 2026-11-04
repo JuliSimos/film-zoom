@@ -51,7 +51,7 @@ fun MovieRecommendationsWireframe(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.small)
     ) {
-        // Título fantasma de la sección
+        // Título de la sección
         Box(
             modifier = Modifier
                 .width(160.dp)
@@ -95,7 +95,7 @@ fun MovieRecommendationsWireframe(
                                     .clip(MaterialTheme.shapes.extraSmall)
                                     .background(skeletonColor)
                             )
-                            Spacer(modifier = Modifier.height(2.dp))
+                            Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)

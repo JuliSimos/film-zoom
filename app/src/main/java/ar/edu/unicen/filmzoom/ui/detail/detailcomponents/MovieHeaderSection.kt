@@ -43,7 +43,7 @@ fun MovieHeaderSection(
             .fillMaxWidth()
             .padding(bottom = AppSpacing.small),
     ) {
-        // 1. Imagen de fondo superior (Backdrop)
+        // Imagen de fondo superior (Backdrop)
 
         Box(
             modifier = Modifier
@@ -74,7 +74,7 @@ fun MovieHeaderSection(
 
         }
 
-        // 2. Fila con el póster superpuesto y los datos principales de la película
+        // Fila con el póster y los datos principales de la película
         Row(
             modifier = Modifier
                 .fillMaxWidth()
