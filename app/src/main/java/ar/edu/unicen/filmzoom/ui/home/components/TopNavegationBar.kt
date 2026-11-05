@@ -23,9 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ar.edu.unicen.filmzoom.R
 import ar.edu.unicen.filmzoom.ui.theme.AppSpacing
 import ar.edu.unicen.filmzoom.ui.theme.FilmZoomTheme
@@ -67,6 +69,12 @@ fun TopNavegationBar(
                 value = searchQuery,
                 onValueChange = onQueryChanged,
                 modifier = Modifier.weight(1f).padding(vertical = 0.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    platformStyle = PlatformTextStyle(
+                        includeFontPadding = false
+                    ),
+                    lineHeight = 20.sp
+                ),
                 placeholder = {
                     Text(
                         text = stringResource(R.string.search_hint),
